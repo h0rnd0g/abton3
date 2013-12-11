@@ -41,8 +41,18 @@ class Controller_Login extends Controller_Base {
                 {
                     // аутентификация успешна!
                     Instance_Security::get()->authUser($user);
-                    $this->abtonRedirect('/start_page'); // делаем редирект
 
+                    // если был сохранен в сессии запрашиваемый uri до переадресации на страницу авторизации...
+                    if ($request_uri = Session::instance()->get('request_uri', false))
+                    {
+                        //throw new Exception($request_uri);
+                        Session::instance()->delete('request_uri'); // очищаем переменную предыдущего запроса в сессии
+                        $this->redirect($request_uri); // делаем редирект по предыдущему запросу (до авторизации)
+                    }
+                    else
+                    {
+                        $this->abtonRedirect('/start_page'); // делаем редирект на стартовую
+                    }
                 }
                 else
                 {
@@ -62,11 +72,7 @@ class Controller_Login extends Controller_Base {
          */
         $this->template->lang_array = $lang_array;
 
-        //DB_Model_Auth::get()->createTables();
-
-//        $user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, 'admin', '123', 'deus.krid@gmail.com', DB_Object::TIMESTAMP_NOW);
-//
-//        DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
+        // TODO: помнить адреса реквестов и редиректить в случае чего!
     }
 
 

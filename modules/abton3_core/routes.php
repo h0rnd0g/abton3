@@ -18,9 +18,17 @@ Route::set('a3_core_loginscreen', '(<lng>/)'.A3_ROOT_URL.'/login')
         'action'     => 'index',
     ));
 
+// роут плагинов
+Route::set('a3_core_plugins', '(<lng>/)'.A3_ROOT_URL.'/plugin')
+    ->defaults(array(
+        'controller' => 'plugin',
+        'action'     => 'index',
+    ));
+
 // роут корневой страницы (н-р, "/ua/admin", "/admin")
 Route::set('a3_core_default', '(<lng>/)'.A3_ROOT_URL)
     ->defaults(array(
         'controller' => 'login',
         'action'     => 'redirect',
     ));
+
