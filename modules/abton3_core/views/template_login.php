@@ -133,8 +133,15 @@
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
     jQuery(document).ready(function() {
+
+        // инициализация языковых переменных скриптов
+        var lang_array = {
+            login_required: "<?= $lang_array['login_field_required'] ?>",
+            password_required: "<?= $lang_array['login_password_field_required'] ?>"
+        };
+
         App.init();
-        Login.init();
+        Login.init(lang_array);
 
         <?= Instance_Messages::get()->getMessagesScript(); ?>
     });

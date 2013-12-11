@@ -6,7 +6,7 @@ return
     array
     (
         // URL сайта
-        'site_url' => 'http://web10.dreamext.com',
+        'site_url' => 'http://abton3.dev',
 
         // базовая часть URL страниц системы управления
         'root_url_part' => 'admin',

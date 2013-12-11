@@ -1,15 +1,15 @@
 var Login = function () {
 
-	var handleLogin = function() {
+	var handleLogin = function(lang_array) {
 		$('.login-form').validate({
 	            errorElement: 'span', //default input error message container
 	            errorClass: 'help-block', // default input error message class
 	            focusInvalid: false, // do not focus the last invalid input
 	            rules: {
-	                username: {
+	                auth_login: {
 	                    required: true
 	                },
-	                password: {
+	                auth_password: {
 	                    required: true
 	                },
 	                remember: {
@@ -18,11 +18,11 @@ var Login = function () {
 	            },
 
 	            messages: {
-	                username: {
-	                    required: "Username is required1."
+	                auth_login: {
+	                    required: lang_array.login_required
 	                },
-	                password: {
-	                    required: "Password is required2."
+	                auth_password: {
+	                    required: lang_array.password_required
 	                }
 	            },
 
@@ -243,11 +243,11 @@ var Login = function () {
     
     return {
         //main function to initiate the module
-        init: function () {
+        init: function (lang_array) {
         	
-            handleLogin();
+            handleLogin(lang_array);
             handleForgetPassword();
-            handleRegister();        
+            handleRegister();
 	       
 	       	$.backstretch([
 		        "/assets/img/bg/1.jpg",

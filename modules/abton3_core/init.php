@@ -11,7 +11,10 @@ if (!array_key_exists('database', Kohana::modules()))
 /**
  * Подготовка среды Kohana
  */
-Cookie::$salt = '0839845797';
+Cookie::$salt = 'abton3_cms_salt1!2@3#4$5%'; // соль для защиты хэшей cookie
+Cookie::$expiration = Instance_Security::get()->getCookieExpirationTime(); // время хранения cookie
+//Cookie::$domain = Instance_Routing::get()->getRootUrl(); // cookie будут доступны только с нашего домена
+Cookie::$httponly = true; // запрещаем доступ к cookie из скриптов
 
 /**
  * Инициализация роутов ядра

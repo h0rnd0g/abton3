@@ -42,4 +42,9 @@ return
 
         // доступные символы для генерации соли
         'salt_characters' => 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*?',
+
+        /*
+         * Настройки cookie
+         */
+        'cookie_expiration' => Date::WEEK
     );

@@ -11,7 +11,9 @@ return
             'login_form_title' => 'Авторизуйтесь у системі',
 
             'login_form_username' => 'Логін',
+            'login_field_required' => 'Введіть логін',
             'login_form_password' => 'Пароль',
+            'login_password_field_required' => 'Введіть пароль',
 
             'login_remember_me' => 'Пам\'ятати мене',
             'login_enter' => 'Увійти',
@@ -22,6 +24,9 @@ return
             'login_email' => 'E-mail',
             'login_restore_back' => 'назад',
             'login_restore_confirm' => 'Підтвердити',
+
+            'login_error_auth_title' => 'Помилка авторизації',
+            'login_error_auth_description' => 'Перевірте введені дані та спробуйте ще раз',
 
             'login_copyright' => '2013 &copy; Dreamext Web',
 

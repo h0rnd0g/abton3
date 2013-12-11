@@ -11,9 +11,9 @@ return array
         'type'       => 'MySQL',
         'connection' => array(
             'hostname'   => 'localhost',
-            'database'   => 'web10_site',
-            'username'   => 'u_web10',
-            'password'   => 'w123456',
+            'database'   => 'abton3',
+            'username'   => 'root',
+            'password'   => 'root',
             'persistent' => FALSE,
         ),
         'table_prefix' => '', // стандартный префикс для сайта

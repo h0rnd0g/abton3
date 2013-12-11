@@ -14,6 +14,12 @@ class Controller_Login extends Controller_Base {
      */
     public function action_index()
     {
+        // удаляем cookie про авторизацию
+        Instance_Security::get()->logout();
+
+        // получаем массив локализации
+        $lang_array = Instance_L10n::get()->getConstantsArray('login_page');
+
         // получаем данные из POST
         $post = $this->request->post();
 
@@ -27,33 +33,40 @@ class Controller_Login extends Controller_Base {
             // получаем пользователя с указанным логином
             $user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByLogin($login);
 
-            // проверка: найден ли пользователь
+            // проверка: найден ли пользователь (идентификация)
             if ($user)
             {
                 // сверяем введенный пароль и хэш найденного пользователя
                 if (Instance_Security::get()->comparePassword($password, $user->getHash()))
                 {
                     // аутентификация успешна!
-                    Instance_Messages::get()->addMessage(Instance_Messages::MESSAGE_SUCCESS, 'Успех', 'Авторизация прошла успешно');
+                    Instance_Security::get()->authUser($user);
+                    $this->abtonRedirect('/start_page'); // делаем редирект
+
                 }
                 else
                 {
                     // неверный пароль
-                    Instance_Messages::get()->addMessage(Instance_Messages::MESSAGE_ERROR, 'Ошибка авторизации', 'Пароли не совпадают');
+                    Instance_Messages::get()->addMessage(Instance_Messages::MESSAGE_ERROR, $lang_array['login_error_auth_title'], $lang_array['login_error_auth_description']);
                 }
             }
             else
             {
-                // в системе нету пользователя с таким логином
-                Instance_Messages::get()->addMessage(Instance_Messages::MESSAGE_ERROR, 'Ошибка авторизации', 'Такого пользователя не существует');
+                // в системе нету пользователя с таким логином (сообщение выводим тоже - отсутствие конкретики в ошибке для безопасности)
+                Instance_Messages::get()->addMessage(Instance_Messages::MESSAGE_ERROR, $lang_array['login_error_auth_title'], $lang_array['login_error_auth_description']);
             }
         }
 
         /*
          * Передача данных к шаблону
          */
-        $lang_array = Instance_L10n::get()->getConstantsArray('login_page');
         $this->template->lang_array = $lang_array;
+
+        //DB_Model_Auth::get()->createTables();
+
+//        $user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, 'admin', '123', 'deus.krid@gmail.com', DB_Object::TIMESTAMP_NOW);
+//
+//        DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
     }
 
 
@@ -62,11 +75,10 @@ class Controller_Login extends Controller_Base {
      */
     public function action_redirect()
     {
-        $user_id = Session::instance()->get('a3_user_id', false);
-
-        if ($user_id !== false)
+        // если авторизованы
+        if (Instance_Security::get()->isAuth())
         {
-
+            $this->abtonRedirect('/start_page');
         }
         else
         {

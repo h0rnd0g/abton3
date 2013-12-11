@@ -6,6 +6,11 @@
 class Instance_Security extends Instance {
 
     /**
+     * @var integer название ключа в cookie, где хранится id пользователя после успешной авторизации
+     */
+    protected $_user_id_cookie = 'user_id';
+
+    /**
      * Метод генерирует соль для хешей
      *
      * @param $size выходная длина генерируемой соли
@@ -80,6 +85,46 @@ class Instance_Security extends Instance {
         // возвращаем результат сравнения
         return
             ($hash == $salt.hash(Kohana::$config->load('security.hash_method'), $salt.$password));
+    }
+
+
+    /**
+     * @return integer длительность хранения Cookie (в секундах)
+     */
+    public function getCookieExpirationTime()
+    {
+        return
+            Kohana::$config->load('security.cookie_expiration');
+    }
+
+
+    /**
+     * @return integer id пользователя, который авторизован (в таблице auth)
+     */
+    public function isAuth()
+    {
+        return
+            Cookie::get($this->_user_id_cookie, false);
+    }
+
+
+    /**
+     * Разлогинивает текущего пользователя
+     */
+    public function logout()
+    {
+        Cookie::delete($this->_user_id_cookie);
+    }
+
+
+    /**
+     * Авторизует пользователя $user
+     *
+     * @param DB_Object_User_Auth $user
+     */
+    public function authUser(DB_Object_User_Auth $user)
+    {
+        Cookie::set($this->_user_id_cookie, $user->getID());
     }
 
 
