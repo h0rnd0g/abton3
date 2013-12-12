@@ -45,7 +45,6 @@ class Controller_Login extends Controller_Base {
                     // если был сохранен в сессии запрашиваемый uri до переадресации на страницу авторизации...
                     if ($request_uri = Session::instance()->get('request_uri', false))
                     {
-                        //throw new Exception($request_uri);
                         Session::instance()->delete('request_uri'); // очищаем переменную предыдущего запроса в сессии
                         $this->redirect($request_uri); // делаем редирект по предыдущему запросу (до авторизации)
                     }
@@ -71,8 +70,6 @@ class Controller_Login extends Controller_Base {
          * Передача данных к шаблону
          */
         $this->template->lang_array = $lang_array;
-
-        // TODO: помнить адреса реквестов и редиректить в случае чего!
     }
 
 

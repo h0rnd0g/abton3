@@ -6,7 +6,7 @@
  */
 class Controller_Plugin extends Controller_Template {
 
-    public $template = 'messages';
+    public $template = 'template_index';
 
     /*
      * Выполняется перед вызовом action'а
@@ -21,6 +21,9 @@ class Controller_Plugin extends Controller_Template {
             Session::instance()->set('request_uri', $_SERVER['REQUEST_URI']); // записываем запрашиваемый им адрес
             $this->abtonRedirect('/login'); // редиректим на страницу авторизации
         }
+
+        $template_lang_array = Instance_L10n::get()->getConstantsArray('index_page');
+        $this->template->template_array = $template_lang_array;
     }
 
     public function action_index()
