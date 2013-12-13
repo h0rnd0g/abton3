@@ -28,7 +28,7 @@ class Controller_Login extends Controller_Base {
             // получаем информацию о авторизации
             $login = $post['auth_login'];
             $password = $post['auth_password'];
-            $remember = $post['remember'];
+            $remember = isset($post['remember']);
 
             // получаем пользователя с указанным логином
             $user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByLogin($login);
@@ -40,7 +40,7 @@ class Controller_Login extends Controller_Base {
                 if (Instance_Security::get()->comparePassword($password, $user->getHash()))
                 {
                     // аутентификация успешна!
-                    Instance_Security::get()->authUser($user);
+                    Instance_Security::get()->authUser($user, $remember);
 
                     // если был сохранен в сессии запрашиваемый uri до переадресации на страницу авторизации...
                     if ($request_uri = Session::instance()->get('request_uri', false))

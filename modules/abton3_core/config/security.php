@@ -46,5 +46,6 @@ return
         /*
          * Настройки cookie
          */
-        'cookie_expiration' => Date::WEEK
+        'cookie_expiration' => Date::WEEK,
+        'cookie_expiration_short' => Date::HOUR
     );

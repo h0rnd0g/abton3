@@ -89,12 +89,17 @@ class Instance_Security extends Instance {
 
 
     /**
+     * @param bool $remember выбрана ли опция remember при авторизации
      * @return integer длительность хранения Cookie (в секундах)
      */
-    public function getCookieExpirationTime()
+    public function getCookieExpirationTime($remember = false)
     {
-        return
-            Kohana::$config->load('security.cookie_expiration');
+        if ($remember)
+            return
+                Kohana::$config->load('security.cookie_expiration');
+        else
+            return
+                Kohana::$config->load('security.cookie_expiration_short');
     }
 
 
@@ -121,10 +126,17 @@ class Instance_Security extends Instance {
      * Авторизует пользователя $user
      *
      * @param DB_Object_User_Auth $user
+     * @param bool $remember выбрана ли опция remember при авторизации (запомнить меня)
      */
-    public function authUser(DB_Object_User_Auth $user)
+    public function authUser(DB_Object_User_Auth $user, $remember = true)
     {
+        $previous_exp = Cookie::$expiration; // запоминаем текущее значение длительности
+
+        // ставим cookie о том, что пользователь авторизован
+        Cookie::$expiration = Instance_Security::get()->getCookieExpirationTime($remember); // время хранения cookie
         Cookie::set($this->_user_id_cookie, $user->getID());
+
+        Cookie::$expiration = $previous_exp; // восстанавливаем запомненное значение
     }
 
 
