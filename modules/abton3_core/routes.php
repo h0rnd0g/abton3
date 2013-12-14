@@ -21,7 +21,8 @@ Route::set('a3_core_loginscreen', '(<lng>/)'.A3_ROOT_URL.'/login')
 // роут плагинов
 Route::set('a3_core_plugins', '(<lng>/)'.A3_ROOT_URL.'/plugin')
     ->defaults(array(
-        'controller' => 'plugin',
+        'directory' => 'plugin',
+        'controller' => 'dummy',
         'action'     => 'index',
     ));
 

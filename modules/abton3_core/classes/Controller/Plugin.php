@@ -7,6 +7,32 @@
 class Controller_Plugin extends Controller_Template {
 
     public $template = 'template_index';
+    private static $_name;
+
+
+    /*
+     * Get & Set
+     */
+
+    public function getPluginName()
+    {
+        return
+            self::$_name;
+    }
+
+
+    /*
+     * В конструкторе добавляем определение имени плагина исходя из имени его класса контроллера
+     */
+    public function __construct(Request $request, Response $response)
+    {
+        parent::__construct($request, $response);
+
+        // определяем имя плагина
+        $class_name = get_class($this);
+        self::$_name = strtolower( str_replace('Controller_Plugin_', '', $class_name) );
+    }
+
 
     /*
      * Выполняется перед вызовом action'а
@@ -24,11 +50,15 @@ class Controller_Plugin extends Controller_Template {
 
         $template_lang_array = Instance_L10n::get()->getConstantsArray('index_page');
         $this->template->template_array = $template_lang_array;
-    }
 
-    public function action_index()
-    {
 
+        /*
+         * обработка плагино-зависимых данных
+         */
+
+        // получаем массив локализации плагина
+        $plugin_lang_array = Instance_L10n::get()->getConstantsArray('plugin/'.self::$_name);
+        $this->template->plugin_array = $plugin_lang_array;
     }
 
 }
