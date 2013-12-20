@@ -50,7 +50,7 @@ class Controller_Login extends Controller_Base {
                     }
                     else
                     {
-                        $this->abtonRedirect('/start_page'); // делаем редирект на стартовую
+                        Instance_Routing::get()->abtonRedirect(); // делаем редирект на стартовую
                     }
                 }
                 else
@@ -81,11 +81,12 @@ class Controller_Login extends Controller_Base {
         // если авторизованы
         if (Instance_Security::get()->isAuth())
         {
-            $this->abtonRedirect('/start_page');
+            Instance_Routing::get()->abtonRedirect(); // то редиректим в корень (на стартовую)
         }
         else
         {
-            $this->abtonRedirect('/login');
+            // иначе редиректим на страницу авторизации
+            Instance_Routing::get()->abtonRedirect('login');
         }
     }
 

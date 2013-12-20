@@ -10,6 +10,7 @@ class Instance_Routing extends Instance {
      */
     private static $_root_url;
 
+
     /*
      * @return $_getRootUrl
      */
@@ -18,6 +19,29 @@ class Instance_Routing extends Instance {
         return
             self::$_root_url;
     }
+
+
+    /**
+     * Редирект внутри системы
+     *
+     *  (если $path не указан, то редирект идет на стартовую страницу системы)
+     *
+     * @param null $path адрес внутри системы управления (не должен начинаться со слеша)
+     * @param null $lang язык (если не указан, то берется текущий)
+     */
+    public function abtonRedirect($path = null, $lang = null)
+    {
+        // редирект относительно пути $path сгенериурет весь путь с префиксом системы управления и текущим языком
+
+        if (!isset($lang))
+            $lang = Instance_L10n::get()->getLanguage();
+
+        if (!isset($path))
+            $path = 'plugin';
+
+        HTTP::redirect('/'.$lang.'/'.Instance_Routing::get()->getRootUrl().'/'.$path);
+    }
+
 
     /*
      * Инициализация
