@@ -14,6 +14,7 @@ class DB_Model_Auth extends DB_Model
      */
     protected $_tables = array(
         'auth' => 'auth',
+        'profiles' => 'auth_profiles',
     );
 
 

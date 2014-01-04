@@ -33,6 +33,21 @@ class DB_Mapper_Auth extends DB_Mapper
 
         DB::query(null, $sql_create)
             ->execute();
+
+        // запрос на создание таблицы auth_profile
+        $sql_create =
+            "CREATE TABLE IF NOT EXISTS {$this->_tables['profiles']} (
+                id SERIAL COMMENT 'PK',
+                username char(50) NOT NULL DEFAULT '' COMMENT 'name of user'
+                birthdate DATE NOT NULL DEFAULT '0000-00-00' COMMENT 'user birthdate',
+                phone char(20) NOT NULL DEFAULT '' COMMENT 'user contact phone',
+                occupation char(100) NOT NULL DEFAULT '' COMMENT 'user occupation'
+                about text NOT NULL DEFAULT '' COMMENT 'about user (some description)',
+                PRIMARY KEY (id)
+            ) CHARACTER SET utf8 COLLATE utf8_general_ci, engine=InnoDB;";
+
+        DB::query(null, $sql_create)
+            ->execute();
     }
 
 
@@ -77,7 +92,7 @@ class DB_Mapper_Auth extends DB_Mapper
 
     public function saveUserAuth(DB_Object_User_Auth $user)
     {
-
+        // TODO: написать UPDATE
     }
 
 
@@ -106,9 +121,24 @@ class DB_Mapper_Auth extends DB_Mapper
         if ($user->getAdded() != DB_Object::TIMESTAMP_NOW)
             $query->set('added', $user->getAdded());
 
+        // вставка профильной информации пользователей
+        $query_profile = DB::insert($this->_tables['profiles']);
+
+        $profile = $user->_getProfile();
+        if ($profile != null) // если указан профиль
+        {
+            // то записываем данные в новую запись
+            $query_profile->set('about', $profile->getAbout());
+        }
+
         try
         {
+            DB::query(null, 'START TRANSACTION')->execute();
+
             $query->execute();
+            $query_profile->execute();
+
+            DB::query(null, 'COMMIT')->execute();
 
             return
                 DB_Mapper::SUCCESS;
@@ -116,8 +146,10 @@ class DB_Mapper_Auth extends DB_Mapper
         catch (Database_Exception $e)
         {
             /*
-             * Если ошибка, то парсим ее штатным методом маппера и возвращаем его результат
+             * Если ошибка, то откатываем транзакцию и парсим ошибку ее штатным методом маппера и возвращаем результат
              */
+
+            DB::query(null, 'ROLLBACK')->execute();
 
             return
                 $this->parseDatabaseException($e);

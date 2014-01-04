@@ -26,6 +26,11 @@ class DB_Object_User_Auth extends DB_Object
      */
     protected $_added;
 
+    /**
+     * @var DB_Object_User_Profile профиль пользователя
+     */
+    protected $_profile;
+
 
     /*
      * Get & Set
@@ -79,6 +84,18 @@ class DB_Object_User_Auth extends DB_Object
             $this->_added;
     }
 
+    public function _getProfile()
+    {
+        return
+            $this->_profile;
+    }
+
+    public function getProfile()
+    {
+        // TODO: autoload
+    }
+
+
     /**
      * Конструктор объекта данных авторизации пользователя
      *
@@ -88,11 +105,12 @@ class DB_Object_User_Auth extends DB_Object
      * @param string $email email пользователя
      * @param string $added дата добавления пользователя (timestamp)
      */
-    function __construct($id, $login, $password, $email, $added, $password_as_hash = false)
+    function __construct($id, $login, $password, $email, $added, $password_as_hash = false, DB_Object_User_Profile $profile = null)
     {
         // инциализация
         $this->_login = $login;
         $this->_email = $email;
+        $this->_profile = $profile;
 
         // если в $password уже хешированный пароль
         if ($password_as_hash)
