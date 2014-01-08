@@ -899,7 +899,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <div class="toggler-close"></div>
     <div class="theme-options">
         <div class="theme-option theme-colors clearfix">
-            <span>THEME COLOR</span>
+            <span><?= $template_array['theme_picker_title'] ?></span>
             <ul>
                 <li class="color-black current color-default" data-style="default"></li>
                 <li class="color-blue" data-style="blue"></li>
@@ -910,31 +910,31 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             </ul>
         </div>
         <div class="theme-option">
-            <span>Layout</span>
+            <span><?= $template_array['theme_picker_layout'] ?></span>
             <select class="layout-option form-control input-small">
-                <option value="fluid" selected="selected">Fluid</option>
-                <option value="boxed">Boxed</option>
+                <option value="fluid" selected="selected"><?= $template_array['theme_picker_layout_fluid'] ?></option>
+                <option value="boxed"><?= $template_array['theme_picker_layout_boxed'] ?></option>
             </select>
         </div>
         <div class="theme-option">
-            <span>Header</span>
+            <span><?= $template_array['theme_picker_header'] ?></span>
             <select class="header-option form-control input-small">
-                <option value="fixed" selected="selected">Fixed</option>
-                <option value="default">Default</option>
+                <option value="fixed" selected="selected"><?= $template_array['theme_picker_header_fixed'] ?></option>
+                <option value="default"><?= $template_array['theme_picker_header_default'] ?></option>
             </select>
         </div>
         <div class="theme-option">
-            <span>Sidebar</span>
+            <span><?= $template_array['theme_picker_menu'] ?></span>
             <select class="sidebar-option form-control input-small">
-                <option value="fixed">Fixed</option>
-                <option value="default" selected="selected">Default</option>
+                <option value="fixed"><?= $template_array['theme_picker_menu_fixed'] ?></option>
+                <option value="default" selected="selected"><?= $template_array['theme_picker_menu_default'] ?></option>
             </select>
         </div>
         <div class="theme-option">
-            <span>Footer</span>
+            <span><?= $template_array['theme_picker_footer'] ?></span>
             <select class="footer-option form-control input-small">
-                <option value="fixed">Fixed</option>
-                <option value="default" selected="selected">Default</option>
+                <option value="fixed"><?= $template_array['theme_picker_footer_fixed'] ?></option>
+                <option value="default" selected="selected"><?= $template_array['theme_picker_footer_default'] ?></option>
             </select>
         </div>
     </div>

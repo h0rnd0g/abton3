@@ -15,7 +15,7 @@ class Controller_Profile extends Controller_Authorized {
         $this->template->plugin_array = Instance_L10n::get()->getConstantsArray('profile/profile_page');
 
         // получаем вид и передаем туда необходимые значения
-        //$view =
+        $this->template->content = View::factory('profile/profile_index');
     }
 
 }
