@@ -22,6 +22,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <link href="/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="/assets/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap-toastr/toastr.min.css">
     <!-- END GLOBAL MANDATORY STYLES -->
     <!-- BEGIN THEME STYLES -->
     <link href="/assets/css/style-metronic.css" rel="stylesheet" type="text/css"/>
@@ -944,7 +945,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <div class="col-md-12">
         <!-- BEGIN PAGE TITLE & BREADCRUMB-->
         <h3 class="page-title">
-            General <small>general ui components</small>
+            <?= $plugin_array['title'] ?> <?= isset($plugin_array['description']) ? "<small>{$plugin_array['description']}</small>" : '' ?>
         </h3>
         <ul class="page-breadcrumb breadcrumb">
             <li class="btn-group">
@@ -975,6 +976,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 </div>
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
+<div class="row">
+    <div class="col-md-12">
+        <?= isset($content) ? $content : 'empty' ?>
+    </div>
+</div>
 <!-- END PAGE CONTENT-->
 <!-- BEGIN PAGE -->
 <!-- END CONTAINER -->
@@ -1004,6 +1010,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script src="/assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+<script src="/assets/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END CORE PLUGINS -->
 <!-- BEGIN PAGE LEVEL PLUGINS -->
 <script type="text/javascript" src="/assets/plugins/gritter/js/jquery.gritter.js"></script>
@@ -1020,6 +1027,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         // initiate layout and plugins
         App.init();
         UIGeneral.init();
+
+        <?= Instance_Messages::get()->getMessagesScript(); ?>
     });
 </script>
 <!-- END JAVASCRIPTS -->

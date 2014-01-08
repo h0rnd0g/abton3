@@ -18,6 +18,17 @@ Route::set('a3_core_loginscreen', '(<lng>/)'.A3_ROOT_URL.'/login')
         'action'     => 'index',
     ));
 
+/*
+ * роуты страниц личного кабинета пользователя
+ */
+    // роут страницы редактирование информации
+    Route::set('a3_core_profile_edit', '(<lng>/)'.A3_ROOT_URL.'/profile')
+        ->defaults(array(
+            'controller' => 'profile',
+            'action'     => 'index',
+        ));
+
+
 // роут плагинов
 Route::set('a3_core_plugins', '(<lng>/)'.A3_ROOT_URL.'/plugin')
     ->defaults(array(

@@ -10,6 +10,10 @@ return array
     (
         'type'       => 'MySQL',
         'connection' => array(
+//            'hostname'   => 'localhost',
+//            'database'   => 'demo19_site',
+//            'username'   => 'u_biznes',
+//            'password'   => 'b123456',
             'hostname'   => 'localhost',
             'database'   => 'abton3',
             'username'   => 'root',

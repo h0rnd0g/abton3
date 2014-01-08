@@ -8,7 +8,7 @@ class Controller_Base extends Controller_Template {
 
     /*
      * Выполняется перед вызовом action'а
-     * Содержит в себе проверку на язык
+     * Содержит в себе проверку на язык + считывание данных пользователя (если авторизован)
      */
     public function before()
     {
