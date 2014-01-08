@@ -92,7 +92,12 @@ class DB_Object_User_Auth extends DB_Object
 
     public function getProfile()
     {
-        // TODO: autoload
+        // AUTOLOAD: если профиль не указан, то пробуем подгрузить его из базы
+        if ($this->_profile == null)
+            $this->_profile = DB_Model_Auth::get()->getMapperInstance()->getUserAuthProfileByID($this->_id);
+
+        return
+            $this->_profile;
     }
 
 
@@ -104,6 +109,8 @@ class DB_Object_User_Auth extends DB_Object
      * @param string $password пароль пользователя (не хэш!)
      * @param string $email email пользователя
      * @param string $added дата добавления пользователя (timestamp)
+     * @param bool $password_as_hash если true, то от пароля не будет браться хэш (передается напрямую)
+     * @param DB_Object_User_Profile $profile объект профиля пользователя
      */
     function __construct($id, $login, $password, $email, $added, $password_as_hash = false, DB_Object_User_Profile $profile = null)
     {

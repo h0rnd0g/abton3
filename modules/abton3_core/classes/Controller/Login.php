@@ -14,6 +14,23 @@ class Controller_Login extends Controller_Base {
      */
     public function action_index()
     {
+//        DB_Model_Auth::get()->dropTables();
+//        DB_Model_Auth::get()->createTables();
+
+//        $profile = new DB_Object_User_Profile('Serhiy', '1992-01-01', '717021', 'developer');
+//        $user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, 'admin', '123', 'dkkrid@gmail.com', DB_Object::TIMESTAMP_NOW, false, $profile);
+//
+//        DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
+
+//        $user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByID(1);
+//        $user->getProfile();
+//
+//        $user->getProfile()->setAbout('here is about2');
+//
+//        DB_Model_Auth::get()->getMapperInstance()->saveUserAuth($user);
+//
+//        throw new Exception(var_dump($user));
+
         // удаляем cookie про авторизацию
         Instance_Security::get()->logout();
 

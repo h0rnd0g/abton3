@@ -38,10 +38,10 @@ class DB_Mapper_Auth extends DB_Mapper
         $sql_create =
             "CREATE TABLE IF NOT EXISTS {$this->_tables['profiles']} (
                 id SERIAL COMMENT 'PK',
-                username char(50) NOT NULL DEFAULT '' COMMENT 'name of user'
+                username char(50) NOT NULL DEFAULT '' COMMENT 'name of user',
                 birthdate DATE NOT NULL DEFAULT '0000-00-00' COMMENT 'user birthdate',
                 phone char(20) NOT NULL DEFAULT '' COMMENT 'user contact phone',
-                occupation char(100) NOT NULL DEFAULT '' COMMENT 'user occupation'
+                occupation char(100) NOT NULL DEFAULT '' COMMENT 'user occupation',
                 about text NOT NULL DEFAULT '' COMMENT 'about user (some description)',
                 PRIMARY KEY (id)
             ) CHARACTER SET utf8 COLLATE utf8_general_ci, engine=InnoDB;";
@@ -53,7 +53,34 @@ class DB_Mapper_Auth extends DB_Mapper
 
     public function getUserAuthByID($id)
     {
+        // запрос
+        $user_raw = DB::select()
+            ->from($this->_tables['auth'])
+            ->where('id', '=', $id)
+            ->execute()
+            ->as_array();
 
+        // проверка: найден ли пользователь
+        if ($user_raw)
+        {
+            // создаем пользователя
+            $user = new DB_Object_User_Auth(
+                $user_raw[0]['id'],
+                $user_raw[0]['login'],
+                $user_raw[0]['hash'],
+                $user_raw[0]['email'],
+                $user_raw[0]['added'],
+                true // указываем, что передаем хэш в конструктор, а не пароль (хэширование аргумента $password не нужно)
+            );
+
+            // и возвращаем его
+            return
+                $user;
+        }
+
+        // если такой логин не найдет, то возвращаем null
+        return
+            null;
     }
 
 
@@ -90,9 +117,88 @@ class DB_Mapper_Auth extends DB_Mapper
     }
 
 
+    public function getUserAuthProfileByID($id)
+    {
+        // запрос
+        $profile_raw = DB::select()
+            ->from($this->_tables['profiles'])
+            ->where('id', '=', $id)
+            ->execute()
+            ->as_array();
+
+        // проверка: найден ли профиль
+        if ($profile_raw)
+        {
+            // создаем профиль
+            $profile = new DB_Object_User_Profile(
+                $profile_raw[0]['username'],
+                $profile_raw[0]['birthdate'],
+                $profile_raw[0]['phone'],
+                $profile_raw[0]['occupation'],
+                $profile_raw[0]['about']
+            );
+
+            // и возвращаем его
+            return
+                $profile;
+        }
+
+        // если такой профиль не найдет, то возвращаем null
+        return
+            null;
+    }
+
+
     public function saveUserAuth(DB_Object_User_Auth $user)
     {
-        // TODO: написать UPDATE
+        // запрос на обновление записи объекта в таблице auth
+        $query = DB::update($this->_tables['auth'])
+            ->set(
+                array
+                (
+                    'login' => $user->getLogin(),
+                    'hash' => $user->getHash(),
+                    'email' => $user->getEmail(),
+                )
+            );
+
+        // получаем профиль пользователя и выполняем запрос на обновление записи профиля в таблице profiles
+        $profile = $user->getProfile();
+        $query_profile = DB::update($this->_tables['profiles'])
+            ->set(
+                array(
+                    'username' => $profile->getUsername(),
+                    'birthdate' => $profile->getBirthdate(),
+                    'phone' => $profile->getPhone(),
+                    'occupation' => $profile->getOccupation(),
+                    'about' => $profile->getAbout()
+                )
+            );
+
+        try
+        {
+            DB::query(null, 'START TRANSACTION')->execute();
+
+            // выполняем запросы в транзакции
+            $query->execute();
+            $query_profile->execute();
+
+            DB::query(null, 'COMMIT')->execute();
+
+            return
+                DB_Mapper::SUCCESS;
+        }
+        catch (Database_Exception $e)
+        {
+            /*
+             * Если ошибка, то откатываем транзакцию и парсим ошибку ее штатным методом маппера и возвращаем результат
+             */
+
+            DB::query(null, 'ROLLBACK')->execute();
+
+            return
+                $this->parseDatabaseException($e);
+        }
     }
 
 
@@ -100,6 +206,7 @@ class DB_Mapper_Auth extends DB_Mapper
      * Метод маппера добавляет в таблицу auth объект $user
      *
      * @param DB_Object_User_Auth $user объект данных авторизации пользователя
+     * @return array ошибки либо DB_Model::SUCCESS
      */
     public function addUserAuth(DB_Object_User_Auth $user)
     {
@@ -124,10 +231,14 @@ class DB_Mapper_Auth extends DB_Mapper
         // вставка профильной информации пользователей
         $query_profile = DB::insert($this->_tables['profiles']);
 
-        $profile = $user->_getProfile();
+        $profile = $user->_getProfile(); // получаем профиль прямиком (без autoload, чтобы не делать лишнего запроса)
         if ($profile != null) // если указан профиль
         {
             // то записываем данные в новую запись
+            $query_profile->set('username', $profile->getUsername());
+            $query_profile->set('birthdate', $profile->getBirthdate());
+            $query_profile->set('phone', $profile->getPhone());
+            $query_profile->set('occupation', $profile->getOccupation());
             $query_profile->set('about', $profile->getAbout());
         }
 
@@ -135,6 +246,7 @@ class DB_Mapper_Auth extends DB_Mapper
         {
             DB::query(null, 'START TRANSACTION')->execute();
 
+            // выполняем запросы в транзакции
             $query->execute();
             $query_profile->execute();
 
