@@ -6,6 +6,7 @@
  * Константы
  */
 define('A3_ROOT_URL', Instance_Routing::get()->getRootUrl());
+define('A3_HREF_PREFIX', Instance_Routing::get()->getPrefixHref());
 
 /*
  * Описание роутов

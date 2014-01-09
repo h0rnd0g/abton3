@@ -12,12 +12,65 @@ class Instance_Routing extends Instance {
 
 
     /*
-     * @return $_getRootUrl
+     * Достает префикс адресов системы управления
+     *
+     * @return string $_getRootUrl
      */
     public function getRootUrl()
     {
         return
             self::$_root_url;
+    }
+
+
+    /**
+     * Возвращает всю часть ссылки системы управления (вместе с текущим языком и префиксом)
+     *
+     * @return string
+     */
+    public function getPrefixHref()
+    {
+        $lang = Instance_L10n::get()->getLanguage();
+        $root = Instance_Routing::get()->getRootUrl();
+
+        return
+            '/'.$lang.'/'.$root.'/';
+    }
+
+
+    /**
+     * Генерирует ссылку по имени системного роута
+     *
+     * @param $route_name имя роута (без префикса a3_ !!!)
+     * @param null $lang язык, который будет передаваться в роут
+     * @param array $params остальные параметры (если есть) для передачи в роут
+     */
+    public function route($route_name, $lang = null, array $params = array())
+    {
+        // добавляем префикс
+        $route_name = 'a3_'.$route_name;
+
+        // если язык не указан, то берем текущий
+        if (!isset($lang))
+            $lang = Instance_L10n::get()->getLanguage();
+
+        // формируем параметры, подставив язык
+        $lang_array = array('lng' => $lang);
+        $params = array_merge($lang_array, $params);
+
+        return
+            Route::url($route_name, $params);
+    }
+
+
+    /**
+     * @param $path конечная часть ссылки
+     * @return string возвращает полностью ссылку с префиксом и конечной частью
+     */
+    public function makeUrl($path)
+    {
+        return
+            $this->getPrefixHref().$path;
     }
 
 

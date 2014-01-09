@@ -8,6 +8,15 @@ return
         'ua' => array(
             'title' => ' - Abton3 CMS',
 
+            'breadcrumb_home_link' => 'На стартову',
+
+            'user_menu_profile' => 'Мій профіль',
+            'user_menu_messages' => 'Повідомлення',
+            'user_menu_fullscreen' => 'На повний екран',
+            'user_menu_lockscreen' => 'Заблокувати',
+            'user_menu_logout' => 'Вийти',
+
+
             'theme_picker_title' => 'Кольорова схема',
                 'theme_picker_layout' => 'Шаблон',
                     'theme_picker_layout_fluid' => 'Текучий',

@@ -344,20 +344,16 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <i class="icon-angle-down"></i>
     </a>
     <ul class="dropdown-menu">
-        <li><a href="extra_profile.html"><i class="icon-user"></i> My Profile</a>
+        <li><a href="<?= Instance_Routing::get()->route('core_profile_edit') ?>"><i class="icon-user"></i> <?= $template_array['user_menu_profile'] ?></a>
         </li>
-        <li><a href="page_calendar.html"><i class="icon-calendar"></i> My Calendar</a>
-        </li>
-        <li><a href="inbox.html"><i class="icon-envelope"></i> My Inbox <span class="badge badge-danger">3</span></a>
-        </li>
-        <li><a href="#"><i class="icon-tasks"></i> My Tasks <span class="badge badge-success">7</span></a>
+        <li><a href="inbox.html"><i class="icon-envelope"></i> <?= $template_array['user_menu_messages'] ?> <span class="badge badge-default">0</span></a>
         </li>
         <li class="divider"></li>
-        <li><a href="javascript:;" id="trigger_fullscreen"><i class="icon-move"></i> Full Screen</a>
+        <li><a href="javascript:;" id="trigger_fullscreen"><i class="icon-move"></i> <?= $template_array['user_menu_fullscreen'] ?></a>
         </li>
-        <li><a href="extra_lock.html"><i class="icon-lock"></i> Lock Screen</a>
+        <li><a href="extra_lock.html"><i class="icon-lock"></i> <?= $template_array['user_menu_lockscreen'] ?></a>
         </li>
-        <li><a href="login.html"><i class="icon-key"></i> Log Out</a>
+        <li><a href="<?= Instance_Routing::get()->route('core_loginscreen') ?>"><i class="icon-key"></i> <?= $template_array['user_menu_logout'] ?></a>
         </li>
     </ul>
 </li>
@@ -962,14 +958,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             </li>
             <li>
                 <i class="icon-home"></i>
-                <a href="index.html">Home</a>
+                <a href="<?= Instance_Routing::get()->makeUrl('') ?>"><?= $template_array['breadcrumb_home_link'] ?></a>
                 <i class="icon-angle-right"></i>
             </li>
             <li>
-                <a href="#">UI Features</a>
+                <a href="javascript:none;">here plugin name</a>
                 <i class="icon-angle-right"></i>
             </li>
-            <li><a href="#">General</a></li>
+            <li><a href="javascript:none;"><?= $plugin_array['title'] ?></a></li>
         </ul>
         <!-- END PAGE TITLE & BREADCRUMB-->
     </div>
