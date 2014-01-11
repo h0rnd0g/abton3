@@ -35,7 +35,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
     <!-- END PAGE LEVEL STYLES -->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

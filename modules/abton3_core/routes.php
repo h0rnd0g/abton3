@@ -6,11 +6,17 @@
  * Константы
  */
 define('A3_ROOT_URL', Instance_Routing::get()->getRootUrl());
-define('A3_HREF_PREFIX', Instance_Routing::get()->getPrefixHref());
 
 /*
  * Описание роутов
  */
+
+// роут страницы авторизации (н-р, "/ua/admin/login", "/admin/login")
+Route::set('a3_core_install', '(<lng>/)'.A3_ROOT_URL.'/install')
+    ->defaults(array(
+        'controller' => 'install',
+        'action'     => 'index',
+    ));
 
 // роут страницы авторизации (н-р, "/ua/admin/login", "/admin/login")
 Route::set('a3_core_loginscreen', '(<lng>/)'.A3_ROOT_URL.'/login')
@@ -19,15 +25,16 @@ Route::set('a3_core_loginscreen', '(<lng>/)'.A3_ROOT_URL.'/login')
         'action'     => 'index',
     ));
 
-/*
- * роуты страниц личного кабинета пользователя
- */
-    // роут страницы редактирование информации
-    Route::set('a3_core_profile_edit', '(<lng>/)'.A3_ROOT_URL.'/profile')
-        ->defaults(array(
-            'controller' => 'profile',
-            'action'     => 'index',
-        ));
+    /*
+     * роуты страниц личного кабинета пользователя
+     */
+
+        // роут страницы редактирование информации
+        Route::set('a3_core_profile_edit', '(<lng>/)'.A3_ROOT_URL.'/profile')
+            ->defaults(array(
+                'controller' => 'profile',
+                'action'     => 'index',
+            ));
 
 
 // роут плагинов
