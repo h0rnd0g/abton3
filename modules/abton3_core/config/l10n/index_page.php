@@ -16,6 +16,7 @@ return
             'user_menu_lockscreen' => 'Заблокувати',
             'user_menu_logout' => 'Вийти',
 
+            'search_placeholder' => 'Пошук...',
 
             'theme_picker_title' => 'Кольорова схема',
                 'theme_picker_layout' => 'Шаблон',

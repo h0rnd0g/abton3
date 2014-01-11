@@ -19,7 +19,7 @@ class Controller_Authorized extends Controller_Base {
 
     /*
      * Выполняется перед вызовом action'а
-     * Содержит в себе проверку на авторизацию + подключение базовых данных шаблона
+     * Содержит в себе проверку на авторизацию + подключение базовых данных шаблона + некоторые меры безопасности
      */
     public function before()
     {
@@ -47,6 +47,14 @@ class Controller_Authorized extends Controller_Base {
         // передаем массив языковых констант шаблона
         $template_lang_array = Instance_L10n::get()->getConstantsArray('index_page');
         $this->template->template_array = $template_lang_array;
+
+
+        /*
+         * защита ajax (токен для предотвращения CSRF атак)
+         *
+         *  для каждой страницы мы генерируем новый токен
+         */
+        Instance_Security::get()->initCSRFToken();
     }
 
 }

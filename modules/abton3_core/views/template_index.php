@@ -382,7 +382,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <div class="form-container">
             <div class="input-box">
                 <a href="javascript:;" class="remove"></a>
-                <input type="text" placeholder="Search..."/>
+                <input type="text" placeholder="<?= $template_array['search_placeholder'] ?>"/>
                 <input type="button" class="submit" value=" "/>
             </div>
         </div>
@@ -944,18 +944,6 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
             <?= $plugin_array['title'] ?> <?= isset($plugin_array['description']) ? "<small>{$plugin_array['description']}</small>" : '' ?>
         </h3>
         <ul class="page-breadcrumb breadcrumb">
-            <li class="btn-group">
-                <button type="button" class="btn blue dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true">
-                    <span>Actions</span> <i class="icon-angle-down"></i>
-                </button>
-                <ul class="dropdown-menu pull-right" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </li>
             <li>
                 <i class="icon-home"></i>
                 <a href="<?= Instance_Routing::get()->makeUrl('') ?>"><?= $template_array['breadcrumb_home_link'] ?></a>

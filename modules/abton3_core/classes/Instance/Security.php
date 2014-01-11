@@ -10,6 +10,32 @@ class Instance_Security extends Instance {
      */
     protected $_user_id_cookie = 'user_id';
 
+
+    /**
+     * Записываем CSRF токен
+     */
+    public function initCSRFToken()
+    {
+        /*
+         * 1) генерируем случайное число
+         * 2) хэшуем его указанным в конфиге алгоритмом защиты
+         * 3) записываем в текущую сессию пользователя
+         */
+        Session::instance()->set('csrf_token', hash(Kohana::$config->load('security.hash_method'), rand()));
+    }
+
+
+    /**
+     * Получаем CSRF токен
+     *
+     * @return string текущий токен (false, если его не существует)
+     */
+    public function getCSRFToken()
+    {
+        return
+            Session::instance()->get('csrf_token', false);
+    }
+
     /**
      * Метод генерирует соль для хешей
      *
@@ -104,7 +130,7 @@ class Instance_Security extends Instance {
 
 
     /**
-     * @return integer id пользователя, который авторизован (в таблице auth)
+     * @return integer id пользователя, который авторизован (в таблице auth), иначе false
      */
     public function isAuth()
     {

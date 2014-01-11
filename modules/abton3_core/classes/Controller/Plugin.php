@@ -33,7 +33,45 @@ class Controller_Plugin extends Controller_Authorized {
     }
 
 
-    /*
+    /**
+     * Ajax-метод плагина
+     */
+    public function action_ajax()
+    {
+        /*
+         * Здесь проверка на совпадение токенов (защита от CSRF)
+         */
+
+        if (!isset($_REQUEST['token']))
+        {
+            // если не передали токен в запрос, то скорее всего была произведена CSRF-атака
+
+            $headers_string = print_r(getallheaders(), true); // запекаем шапку запроса
+
+            // выводим в лог предупреждение о запросе без токена + его заголовки
+            Log::instance()->add(Log::ERROR,
+                'Abton3 CMS :: On Controller_Plugin::action_ajax() : there was an attempt to execute ajax query without token! Here is query\'s headers: '.$headers_string
+            );
+
+            die('Permission denied!');
+        }
+        elseif ( $_REQUEST['token'] != Instance_Security::get()->getCSRFToken() ) // сравниваем токены
+        {
+            // если токены не равны, то скорее всего была произведена CSRF-атака
+
+            $headers_string = print_r(getallheaders(), true); // запекаем шапку запроса
+
+            // выводим в лог предупреждение о CSRF  + его заголовки
+            Log::instance()->add(Log::WARNING,
+                'Abton3 CMS :: On Controller_Plugin::action_ajax() : there was an attempt to execute ajax query with wrong token! Here is query\'s headers: '.$headers_string
+            );
+
+            die('Permission denied!');
+        }
+    }
+
+
+    /**
      * Выполняется перед вызовом action'а
      */
     public function before()
@@ -48,5 +86,22 @@ class Controller_Plugin extends Controller_Authorized {
         $plugin_lang_array = Instance_L10n::get()->getConstantsArray('plugin/'.self::$_name);
         $this->template->plugin_array = $plugin_lang_array;
     }
+
+
+    /*
+     * Служебные методы плагинов
+     */
+
+    public static function getMenuTree()
+    {
+
+    }
+
+
+    public static function getSearchResults($search_string)
+    {
+
+    }
+
 
 }
