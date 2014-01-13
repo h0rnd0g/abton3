@@ -40,23 +40,57 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <body>
 <div class="page-content">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <h2><?= $lang_array['title'] ?></h2>
             <div class="well-lg">
                 <?= $lang_array['description'] ?>
             </div>
             <form role="form">
-                <h3 class="form-section">Налаштування MySQL</h3>
-                <div class="form-body">
-                    123213
-                </div>
-                <h3 class="form-section">Профіль адміністратора</h3>
+                <h3 class="form-section"><?= $lang_array['group_mysql'] ?></h3>
                 <div class="form-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1"><?= $lang_array['label_login'] ?></label>
+                        <label for="mysql-hostname"><?= $lang_array['label_hostname'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-globe"></i>
+                            <input type="text" class="form-control" id="mysql-hostname" placeholder="localhost" value="localhost">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mysql-database"><?= $lang_array['label_database'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-hdd"></i>
+                            <input type="text" class="form-control" id="mysql-database" placeholder="" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mysql-login"><?= $lang_array['label_username'] ?></label>
                         <div class="input-icon">
                             <i class="icon-user"></i>
-                            <input type="text" class="form-control" id="admin-login" placeholder="admin">
+                            <input type="text" class="form-control" id="mysql-login" placeholder="" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mysql-password"><?= $lang_array['label_password'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-lock"></i>
+                            <input type="text" class="form-control" id="mysql-password" placeholder="" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mysql-prefix"><?= $lang_array['label_tableprefix'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-lock"></i>
+                            <input type="text" class="form-control" id="mysql-prefix" placeholder="a3_" value="a3_">
+                        </div>
+                    </div>
+                </div>
+                <h3 class="form-section"><?= $lang_array['group_admin'] ?></h3>
+                <div class="form-body">
+                    <div class="form-group">
+                        <label for="admin-login"><?= $lang_array['label_login'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-user"></i>
+                            <input type="text" class="form-control" id="admin-login" placeholder="admin" value="admin">
                         </div>
                         <span class="help-block"><?= $lang_array['label_login_help'] ?></span>
                     </div>
@@ -68,49 +102,63 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputPassword1"><?= $lang_array['label_password'] ?></label>
+                        <label for="admin-password"><?= $lang_array['label_password'] ?></label>
                         <div class="input-icon">
                             <i class="icon-lock"></i>
                             <input type="text" class="form-control" id="admin-password" placeholder="">
                         </div>
                     </div>
                 </div>
-                <h3 class="form-section">Налаштування адресації</h3>
+                <h3 class="form-section"><?= $lang_array['group_security'] ?></h3>
                 <div class="form-body">
-                    123213
+                    <div class="form-group">
+                        <label><?= $lang_array['label_hashfunc'] ?></label>
+                        <select class="form-control" id="security-hash-func" disabled>
+                            <option value="sha512">SHA 512 (рекомендовано)</option>
+                            <option value="sha256">SHA 256</option>
+                            <option value="sha1">SHA 1</option>
+                            <option value="md5">md5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" id="security-use-salt" checked disabled> Використовувати "сіль" (рекомендовано)
+                    </div>
                 </div>
-                <h3 class="form-section">Безпека та системи захисту</h3>
+                <h3 class="form-section"><?= $lang_array['group_misc'] ?></h3>
                 <div class="form-body">
-                    123213
-                </div>
-                <h3 class="form-section">Налаштування мов системи управління</h3>
-                <div class="form-body">
-                    123213
+                    <div class="form-group">
+                        <label for="misc-siteurl"><?= $lang_array['label_siteurl'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-globe"></i>
+                            <input type="text" class="form-control" id="misc-siteurl" placeholder="http://www.site.com" value="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="misc-prefix"><?= $lang_array['label_cmsprefix'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-globe"></i>
+                            <input type="text" class="form-control" id="misc-prefix" placeholder="admin" value="admin">
+                        </div>
+                        <span class="help-block"><?= $lang_array['label_cmsprefix_help'] ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= $lang_array['label_l10n_available'] ?></label>
+                        <select multiple="" class="form-control" id="misc-l10n-available">
+                            <option value="ua" selected>українська</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><?= $lang_array['label_l10n_default'] ?></label>
+                        <select class="form-control" id="misc-l10n-default">
+                            <option value="ua">українська</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn blue"><?= $lang_array['label_button_install'] ?></button>
                     <button type="clear" class="btn default"><?= $lang_array['label_button_clear'] ?></button>
                 </div>
             </form>
-            <div class="portlet solid bordered light-grey">
-                <div class="portlet-title">
-                    <div class="caption"><i class="icon-bar-chart"></i><?= $lang_array['label_config'] ?></div>
-                </div>
-                <div class="portlet-body">
-                    <div class="help-block"><i>Перевірте поточні налаштування перш ніж натискати кнопку "Встановити"</i></div>
-                    <div class="well-lg">
-                        Буде встановлено наступні плагіни:
-                        <p>
-                        <ul>
-                            <li>Dummy</li>
-                            <li>Новини</li>
-                            <li>Блог</li>
-                            <li>Онлайн-магазин</li>
-                        </ul>
-                        </p>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
