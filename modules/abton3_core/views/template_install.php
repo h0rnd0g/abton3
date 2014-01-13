@@ -12,7 +12,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- BEGIN HEAD -->
 <head>
     <meta charset="utf-8" />
-    <title>Встановлення системи управління</title>
+    <title><?= $lang_array['title'] ?></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="" name="description" />
@@ -31,6 +31,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <link href="/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
     <link href="/assets/css/pages/error.css" rel="stylesheet" type="text/css"/>
     <link href="/assets/css/custom.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/bootstrap-toastr/toastr.min.css">
     <!-- END THEME STYLES -->
     <link rel="shortcut icon" href="/favicon.ico" />
 </head>
@@ -40,153 +41,76 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <div class="page-content">
     <div class="row">
         <div class="col-md-12">
-            <h2>Встановлення системи управління Abton3 CMS</h2>
-            <div class="well">
-                Вкажіть основні налаштування для системи управління та натисніть кнопку "Встановити"
+            <h2><?= $lang_array['title'] ?></h2>
+            <div class="well-lg">
+                <?= $lang_array['description'] ?>
             </div>
             <form role="form">
+                <h3 class="form-section">Налаштування MySQL</h3>
+                <div class="form-body">
+                    123213
+                </div>
+                <h3 class="form-section">Профіль адміністратора</h3>
                 <div class="form-body">
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Text</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter text">
-                        <span class="help-block">A block of help text.</span>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="icon-envelope"></i></span>
-                            <input type="text" class="form-control" placeholder="Email Address">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                            <span class="input-group-addon"><i class="icon-user"></i></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Left Icon</label>
+                        <label for="exampleInputEmail1"><?= $lang_array['label_login'] ?></label>
                         <div class="input-icon">
-                            <i class="icon-bell"></i>
-                            <input type="text" class="form-control" placeholder="Left icon">
+                            <i class="icon-user"></i>
+                            <input type="text" class="form-control" id="admin-login" placeholder="admin">
+                        </div>
+                        <span class="help-block"><?= $lang_array['label_login_help'] ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label><?= $lang_array['label_email'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-envelope"></i>
+                            <input type="text" class="form-control" id="admin-email" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Right Icon</label>
-                        <div class="input-icon right">
-                            <i class="icon-microphone"></i>
-                            <input type="text" class="form-control" placeholder="Right icon">
+                        <label for="exampleInputPassword1"><?= $lang_array['label_password'] ?></label>
+                        <div class="input-icon">
+                            <i class="icon-lock"></i>
+                            <input type="text" class="form-control" id="admin-password" placeholder="">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Input With Spinner</label>
-                        <input class="form-control spinner" type="text" placeholder="Process something">
-                    </div>
-                    <div class="form-group">
-                        <label>Static Control</label>
-                        <p class="form-control-static">email@example.com</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Disabled</label>
-                        <input type="text" class="form-control" placeholder="Disabled" disabled="">
-                    </div>
-                    <div class="form-group">
-                        <label>Readonly</label>
-                        <input type="text" class="form-control" placeholder="Readonly" readonly="">
-                    </div>
-                    <div class="form-group">
-                        <label>Dropdown</label>
-                        <select class="form-control">
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                            <option>Option 4</option>
-                            <option>Option 5</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Multiple Select</label>
-                        <select multiple="" class="form-control">
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
-                            <option>Option 4</option>
-                            <option>Option 5</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Textarea</label>
-                        <textarea class="form-control" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile1">File input</label>
-                        <input type="file" id="exampleInputFile1">
-                        <p class="help-block">some help text here.</p>
-                    </div>
-                    <div class="form-group">
-                        <label class="">Checkboxes</label>
-                        <div class="checkbox-list">
-                            <label>
-                                <div class="checker"><span><input type="checkbox"></span></div> Checkbox 1
-                            </label>
-                            <label>
-                                <div class="checker"><span><input type="checkbox"></span></div> Checkbox 2
-                            </label>
-                            <label>
-                                <div class="checker disabled"><span><input type="checkbox" disabled=""></span></div> Disabled
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="">Inline Checkboxes</label>
-                        <div class="checkbox-list">
-                            <label class="checkbox-inline">
-                                <div class="checker" id="uniform-inlineCheckbox1"><span><input type="checkbox" id="inlineCheckbox1" value="option1"></span></div> Checkbox 1
-                            </label>
-                            <label class="checkbox-inline">
-                                <div class="checker" id="uniform-inlineCheckbox2"><span><input type="checkbox" id="inlineCheckbox2" value="option2"></span></div> Checkbox 2
-                            </label>
-                            <label class="checkbox-inline">
-                                <div class="checker disabled" id="uniform-inlineCheckbox3"><span><input type="checkbox" id="inlineCheckbox3" value="option3" disabled=""></span></div> Disabled
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="">Radio</label>
-                        <div class="radio-list">
-                            <label>
-                                <div class="radio" id="uniform-optionsRadios1"><span><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked=""></span></div> Option 1
-                                Option 1
-                            </label>
-                            <label>
-                                <div class="radio" id="uniform-optionsRadios2"><span><input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"></span></div> Option 2
-                            </label>
-                            <label>
-                                <div class="radio disabled" id="uniform-optionsRadios3"><span><input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" disabled=""></span></div> Disabled
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="">Inline Radio</label>
-                        <div class="radio-list">
-                            <label class="radio-inline">
-                                <div class="radio" id="uniform-optionsRadios4"><span class="checked"><input type="radio" name="optionsRadios" id="optionsRadios4" value="option1" checked=""></span></div> Option 1
-                            </label>
-                            <label class="radio-inline">
-                                <div class="radio" id="uniform-optionsRadios5"><span><input type="radio" name="optionsRadios" id="optionsRadios5" value="option2"></span></div> Option 2
-                            </label>
-                            <label class="radio-inline">
-                                <div class="radio disabled" id="uniform-optionsRadios6"><span><input type="radio" name="optionsRadios" id="optionsRadios6" value="option3" disabled=""></span></div> Disabled
-                            </label>
-                        </div>
-                    </div>
+                </div>
+                <h3 class="form-section">Налаштування адресації</h3>
+                <div class="form-body">
+                    123213
+                </div>
+                <h3 class="form-section">Безпека та системи захисту</h3>
+                <div class="form-body">
+                    123213
+                </div>
+                <h3 class="form-section">Налаштування мов системи управління</h3>
+                <div class="form-body">
+                    123213
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn blue">Submit</button>
-                    <button type="button" class="btn default">Cancel</button>
+                    <button type="submit" class="btn blue"><?= $lang_array['label_button_install'] ?></button>
+                    <button type="clear" class="btn default"><?= $lang_array['label_button_clear'] ?></button>
                 </div>
             </form>
+            <div class="portlet solid bordered light-grey">
+                <div class="portlet-title">
+                    <div class="caption"><i class="icon-bar-chart"></i><?= $lang_array['label_config'] ?></div>
+                </div>
+                <div class="portlet-body">
+                    <div class="help-block"><i>Перевірте поточні налаштування перш ніж натискати кнопку "Встановити"</i></div>
+                    <div class="well-lg">
+                        Буде встановлено наступні плагіни:
+                        <p>
+                        <ul>
+                            <li>Dummy</li>
+                            <li>Новини</li>
+                            <li>Блог</li>
+                            <li>Онлайн-магазин</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -204,6 +128,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script src="/assets/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/jquery.cookie.min.js" type="text/javascript"></script>
 <script src="/assets/plugins/uniform/jquery.uniform.min.js" type="text/javascript" ></script>
+<script src="/assets/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END CORE PLUGINS -->
 <script src="/assets/scripts/app.js"></script>
 <script>
@@ -212,6 +137,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     });
 </script>
 <!-- END JAVASCRIPTS -->
+
 </body>
 <!-- END BODY -->
 </html>

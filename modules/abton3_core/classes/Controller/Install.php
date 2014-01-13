@@ -17,7 +17,10 @@ class Controller_Install extends Controller_Base {
      */
     public function action_index()
     {
-
+        /*
+         * Передача данных к шаблону
+         */
+        $this->template->lang_array = Instance_L10n::get()->getConstantsArray('install_page');;
     }
 
 }
