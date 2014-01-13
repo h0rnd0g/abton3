@@ -9,5 +9,5 @@ return
         'default_language' => 'ua',
 
         // доступные языки
-        'available_languages' => array('ua'),
+        'available_languages' => array('ua' => 'українська'),
     );

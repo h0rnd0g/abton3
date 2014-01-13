@@ -27,7 +27,7 @@ class Instance_L10n extends Instance {
         $available = Kohana::$config->load('l10n.available_languages');
 
         // если языка не существует в массиве доступных...
-        if (!in_array($language, $available))
+        if (!array_key_exists($language, $available))
         {
             // ... записываем в лог
             Log::instance()->add(Log::WARNING, 'Abton3 CMS :: On Instance_L10n::setLanguage() : language \':lng\' doesnt exist!', array(

@@ -12,6 +12,46 @@ class Instance_Security extends Instance {
 
 
     /**
+     * Проверка на соответствие токенов (защита от CSRF-атак)
+     *  если нет, то будет выброшен die
+     */
+    public function checkRequestToken()
+    {
+        $token_request = $this->getCSRFTokenFromRequest();
+        $token_current = $this->getCSRFToken();
+
+        if (!$token_request)
+        {
+            // если не передали токен в запрос, то скорее всего была произведена CSRF-атака
+
+            $headers_string = print_r(getallheaders(), true); // запекаем шапку запроса
+            $post_string = print_r($_POST, true); // запекаем POST-массив
+
+            // выводим в лог предупреждение о запросе без токена + его заголовки + POST-массив
+            Log::instance()->add(Log::ERROR,
+                'Abton3 CMS :: On Controller_Plugin::action_ajax() : there was an attempt to execute ajax query without token! Here is query\'s headers: '.$headers_string.' '.$post_string
+            );
+
+            die(false);
+        }
+        elseif ( $token_request != $token_current ) // сравниваем токены
+        {
+            // если токены не равны, то была произведена CSRF-атака
+
+            $headers_string = print_r(getallheaders(), true); // запекаем шапку запроса
+            $post_string = print_r($_POST, true); // запекаем POST-массив
+
+            // выводим в лог предупреждение о CSRF  + его заголовки + POST-массив
+            Log::instance()->add(Log::WARNING,
+                'Abton3 CMS :: On Controller_Plugin::action_ajax() : there was an attempt to execute ajax query with wrong token! Here is query\'s headers: '.$headers_string.' '.$post_string
+            );
+
+            die(false);
+        }
+    }
+
+
+    /**
      * Записываем CSRF токен
      */
     public function initCSRFToken()
@@ -34,6 +74,17 @@ class Instance_Security extends Instance {
     {
         return
             Session::instance()->get('csrf_token', false);
+    }
+
+    /**
+     * Получаем CSRF токен из запроса
+     *
+     * @return string текущий токен (false, если его не существует)
+     */
+    public function getCSRFTokenFromRequest()
+    {
+        return
+            (isset($_POST['token'])) ? $_POST['token'] : false;
     }
 
     /**

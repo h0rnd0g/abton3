@@ -38,36 +38,14 @@ class Controller_Plugin extends Controller_Authorized {
      */
     public function action_ajax()
     {
+        // отменяем отрисовку шаблона (так как обработчик ajax)
+        $this->auto_render = false;
+
         /*
          * Здесь проверка на совпадение токенов (защита от CSRF)
          */
 
-        if (!isset($_REQUEST['token']))
-        {
-            // если не передали токен в запрос, то скорее всего была произведена CSRF-атака
-
-            $headers_string = print_r(getallheaders(), true); // запекаем шапку запроса
-
-            // выводим в лог предупреждение о запросе без токена + его заголовки
-            Log::instance()->add(Log::ERROR,
-                'Abton3 CMS :: On Controller_Plugin::action_ajax() : there was an attempt to execute ajax query without token! Here is query\'s headers: '.$headers_string
-            );
-
-            die('Permission denied!');
-        }
-        elseif ( $_REQUEST['token'] != Instance_Security::get()->getCSRFToken() ) // сравниваем токены
-        {
-            // если токены не равны, то скорее всего была произведена CSRF-атака
-
-            $headers_string = print_r(getallheaders(), true); // запекаем шапку запроса
-
-            // выводим в лог предупреждение о CSRF  + его заголовки
-            Log::instance()->add(Log::WARNING,
-                'Abton3 CMS :: On Controller_Plugin::action_ajax() : there was an attempt to execute ajax query with wrong token! Here is query\'s headers: '.$headers_string
-            );
-
-            die('Permission denied!');
-        }
+        Instance_Security::get()->checkRequestToken();
     }
 
 

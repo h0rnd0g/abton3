@@ -11,12 +11,23 @@ define('A3_ROOT_URL', Instance_Routing::get()->getRootUrl());
  * Описание роутов
  */
 
-// роут страницы авторизации (н-р, "/ua/admin/login", "/admin/login")
-Route::set('a3_core_install', '(<lng>/)'.A3_ROOT_URL.'/install')
-    ->defaults(array(
-        'controller' => 'install',
-        'action'     => 'index',
-    ));
+    /*
+     * роуты установщика системы управления
+     */
+
+        // главная страница установки
+        Route::set('a3_core_install', '(<lng>/)'.A3_ROOT_URL.'/install')
+            ->defaults(array(
+                'controller' => 'install',
+                'action'     => 'index',
+            ));
+
+        // проверка соединения с БД
+        Route::set('a3_core_install_test', '(<lng>/)'.A3_ROOT_URL.'/install/connection_test')
+            ->defaults(array(
+                'controller' => 'install',
+                'action'     => 'test',
+            ));
 
 // роут страницы авторизации (н-р, "/ua/admin/login", "/admin/login")
 Route::set('a3_core_loginscreen', '(<lng>/)'.A3_ROOT_URL.'/login')

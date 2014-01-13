@@ -52,37 +52,39 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <label for="mysql-hostname"><?= $lang_array['label_hostname'] ?></label>
                         <div class="input-icon">
                             <i class="icon-globe"></i>
-                            <input type="text" class="form-control" id="mysql-hostname" placeholder="localhost" value="localhost">
+                            <input type="text" class="form-control not-empty" id="mysql-hostname" placeholder="localhost" value="localhost">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="mysql-database"><?= $lang_array['label_database'] ?></label>
                         <div class="input-icon">
                             <i class="icon-hdd"></i>
-                            <input type="text" class="form-control" id="mysql-database" placeholder="" value="">
+                            <input type="text" class="form-control not-empty" id="mysql-database" placeholder="" value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="mysql-login"><?= $lang_array['label_username'] ?></label>
                         <div class="input-icon">
                             <i class="icon-user"></i>
-                            <input type="text" class="form-control" id="mysql-login" placeholder="" value="">
+                            <input type="text" class="form-control not-empty" id="mysql-login" placeholder="" value="">
                         </div>
+                        <span class="help-block"><?= $lang_array['label_login_help'] ?></span>
                     </div>
                     <div class="form-group">
                         <label for="mysql-password"><?= $lang_array['label_password'] ?></label>
                         <div class="input-icon">
                             <i class="icon-lock"></i>
-                            <input type="text" class="form-control" id="mysql-password" placeholder="" value="">
+                            <input type="password" class="form-control" id="mysql-password" placeholder="" value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="mysql-prefix"><?= $lang_array['label_tableprefix'] ?></label>
                         <div class="input-icon">
                             <i class="icon-lock"></i>
-                            <input type="text" class="form-control" id="mysql-prefix" placeholder="a3_" value="a3_">
+                            <input type="text" class="form-control not-empty" id="mysql-prefix" placeholder="a3_" value="a3_">
                         </div>
                     </div>
+                    <button type="button" class="btn default yellow" id="test-connection"><i class="icon-refresh"></i> <?= $lang_array['label_button_test'] ?></button>
                 </div>
                 <h3 class="form-section"><?= $lang_array['group_admin'] ?></h3>
                 <div class="form-body">
@@ -90,22 +92,22 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <label for="admin-login"><?= $lang_array['label_login'] ?></label>
                         <div class="input-icon">
                             <i class="icon-user"></i>
-                            <input type="text" class="form-control" id="admin-login" placeholder="admin" value="admin">
+                            <input type="text" class="form-control not-empty" id="admin-login" placeholder="admin" value="admin">
                         </div>
                         <span class="help-block"><?= $lang_array['label_login_help'] ?></span>
                     </div>
                     <div class="form-group">
-                        <label><?= $lang_array['label_email'] ?></label>
+                        <label for="admin-email"><?= $lang_array['label_email'] ?></label>
                         <div class="input-icon">
                             <i class="icon-envelope"></i>
-                            <input type="text" class="form-control" id="admin-email" placeholder="">
+                            <input type="text" class="form-control not-empty" id="admin-email" placeholder="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="admin-password"><?= $lang_array['label_password'] ?></label>
                         <div class="input-icon">
                             <i class="icon-lock"></i>
-                            <input type="text" class="form-control" id="admin-password" placeholder="">
+                            <input type="text" class="form-control not-empty" id="admin-password" placeholder="">
                         </div>
                     </div>
                 </div>
@@ -121,7 +123,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="checkbox" id="security-use-salt" checked disabled> Використовувати "сіль" (рекомендовано)
+                        <input type="checkbox" class="form-control" id="security-use-salt" checked disabled> <?= $lang_array['label_use_salt'] ?>
                     </div>
                 </div>
                 <h3 class="form-section"><?= $lang_array['group_misc'] ?></h3>
@@ -130,32 +132,30 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <label for="misc-siteurl"><?= $lang_array['label_siteurl'] ?></label>
                         <div class="input-icon">
                             <i class="icon-globe"></i>
-                            <input type="text" class="form-control" id="misc-siteurl" placeholder="http://www.site.com" value="">
+                            <input type="text" class="form-control not-empty" id="misc-siteurl" placeholder="http://www.site.com" value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="misc-prefix"><?= $lang_array['label_cmsprefix'] ?></label>
                         <div class="input-icon">
                             <i class="icon-globe"></i>
-                            <input type="text" class="form-control" id="misc-prefix" placeholder="admin" value="admin">
+                            <input type="text" class="form-control not-empty" id="misc-prefix" placeholder="admin" value="admin">
                         </div>
                         <span class="help-block"><?= $lang_array['label_cmsprefix_help'] ?></span>
                     </div>
                     <div class="form-group">
-                        <label><?= $lang_array['label_l10n_available'] ?></label>
-                        <select multiple="" class="form-control" id="misc-l10n-available">
-                            <option value="ua" selected>українська</option>
-                        </select>
+                        <label><?= $lang_array['label_l10n_available'] ?>:</label>
+                        <input type="checkbox" class="form-control" id="security-use-salt" value="ua" checked disabled> українська
                     </div>
                     <div class="form-group">
                         <label><?= $lang_array['label_l10n_default'] ?></label>
-                        <select class="form-control" id="misc-l10n-default">
+                        <select class="form-control" id="misc-l10n-default" disabled>
                             <option value="ua">українська</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-actions">
-                    <button type="submit" class="btn blue"><?= $lang_array['label_button_install'] ?></button>
+                    <button type="button" id="submit-install" class="btn blue"><?= $lang_array['label_button_install'] ?></button>
                     <button type="clear" class="btn default"><?= $lang_array['label_button_clear'] ?></button>
                 </div>
             </form>
@@ -179,9 +179,32 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script src="/assets/plugins/bootstrap-toastr/toastr.min.js"></script>
 <!-- END CORE PLUGINS -->
 <script src="/assets/scripts/app.js"></script>
+<script src="/assets/scripts/abton/install.js"></script>
 <script>
     jQuery(document).ready(function() {
         App.init();
+
+        // инициализация языковых переменных скриптов
+        var lang_array = {
+            validate_error: "<?= $lang_array['validate_error'] ?>",
+            validate_field_empty: "<?= $lang_array['validate_field_empty'] ?>",
+
+            test_success_title: "<?= $lang_array['test_success_title'] ?>",
+            test_success_message: "<?= $lang_array['test_success_message'] ?>",
+            test_error_title: "<?= $lang_array['test_error_title'] ?>",
+            test_error_message: "<?= $lang_array['test_error_message'] ?>"
+        };
+
+        var test_db_ajax = '<?= $test_db_ajax; ?>';
+        $.ajaxSetup({
+            data: {
+                token: '<?= $token ?>'
+            }
+        });
+
+        a3_Install.init(lang_array, test_db_ajax); // обработка элементов страницы
+
+        <?= Instance_Messages::get()->getMessagesScript(); ?>
     });
 </script>
 <!-- END JAVASCRIPTS -->
