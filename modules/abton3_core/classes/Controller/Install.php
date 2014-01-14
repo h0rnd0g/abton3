@@ -40,6 +40,9 @@ class Controller_Install extends Controller_Base {
         // отменяем отрисовку шаблона (так как обработчик ajax)
         $this->auto_render = false;
 
+        if (($_POST['hostname'] == '') or ($_POST['login'] == '') or ($_POST['db'] == ''))
+            die(false);
+
         // проверяем соединение с БД MySQL
         try
         {

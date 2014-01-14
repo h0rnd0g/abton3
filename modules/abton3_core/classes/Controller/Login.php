@@ -5,7 +5,7 @@
  *   Контроллер, который описывает логику работы ядра с запросами
  *   касательно авторизации, блокировки интерфейса, выхода и т.д.
  */
-class Controller_Login extends Controller_Base {
+class Controller_Login extends Controller_Depended {
 
     public $template = 'template_login';
 

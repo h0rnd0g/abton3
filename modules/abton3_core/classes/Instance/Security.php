@@ -11,6 +11,37 @@ class Instance_Security extends Instance {
     protected $_user_id_cookie = 'user_id';
 
 
+    /*
+     * Функции для работы с флагом установки
+     */
+    public function isInstalled()
+    {
+        return
+            Kohana::$config->load('security.installed');
+    }
+
+
+    private function setInstalledFlag($state)
+    {
+        Kohana::$config
+            ->load('security')
+            ->set('installed', $state)
+            ->save();
+    }
+
+
+    public function markInstalled()
+    {
+        $this->setInstalledFlag(true);
+    }
+
+
+    public function markUninstalled()
+    {
+        $this->setInstalledFlag(false);
+    }
+
+
     /**
      * Проверка на соответствие токенов (защита от CSRF-атак)
      *  если нет, то будет выброшен die

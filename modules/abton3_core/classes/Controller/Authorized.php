@@ -5,7 +5,7 @@
  *   Базовый контроллер всех страниц системы (системные, плагины, личный кабинет и т.п.)
  *   Содержит проверку на авторизацию
  */
-class Controller_Authorized extends Controller_Base {
+class Controller_Authorized extends Controller_Depended {
 
     /**
      * @var string название вида шаблона для всех страниц внутри системы
