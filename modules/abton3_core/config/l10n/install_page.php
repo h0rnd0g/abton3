@@ -42,6 +42,9 @@ return
             'test_error_title' => 'Невдача',
             'test_error_message' => 'Не вдалось встановити з\'єднання. Перевірте налаштування!',
 
+            'install_success_title' => 'Інсталяція успішно завершена!',
+            'install_success_message' => 'Через 5 секунд вас буде автоматично переадресовано на сторінку авторизації системи управління',
+
             'label_button_install' => 'Встановити',
             'label_button_clear' => 'Очистити',
             'label_button_test' => 'Перевірити з\'єднання'

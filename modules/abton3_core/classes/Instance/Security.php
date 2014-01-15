@@ -11,6 +11,29 @@ class Instance_Security extends Instance {
     protected $_user_id_cookie = 'user_id';
 
 
+    /**
+     * Перевод строки JS serialize() в PHP массив
+     *
+     * @param $data строка JS serialize()
+     * @return mixed возвращает массив PHP
+     */
+    public function parseAjaxData($data)
+    {
+        parse_str($data, $result);
+
+        return
+            $result;
+    }
+
+
+    public function ajaxResponse($code, $data = array())
+    {
+        $response = array_merge($data, array('result' => $code));
+
+        echo json_encode($response);
+    }
+
+
     /*
      * Функции для работы с флагом установки
      */
@@ -171,7 +194,7 @@ class Instance_Security extends Instance {
                 Kohana::$config->load('security.salt_characters'));
 
         return
-            $salt.hash(Kohana::$config->load('security.hash_method'), $salt.$string);
+            $salt.hash(Kohana::$config->load('security.hash_method'), $string.$salt);
     }
 
 
@@ -192,7 +215,7 @@ class Instance_Security extends Instance {
 
         // возвращаем результат сравнения
         return
-            ($hash == $salt.hash(Kohana::$config->load('security.hash_method'), $salt.$password));
+            ($hash == hash(Kohana::$config->load('security.hash_method'), $password.$salt).$salt);
     }
 
 

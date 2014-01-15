@@ -29,6 +29,13 @@ define('A3_ROOT_URL', Instance_Routing::get()->getRootUrl());
                 'action'     => 'test',
             ));
 
+        // роут установки системы управления
+        Route::set('a3_core_install_perform', '(<lng>/)'.A3_ROOT_URL.'/install/do_install')
+            ->defaults(array(
+                'controller' => 'install',
+                'action'     => 'install',
+            ));
+
 // роут страницы авторизации (н-р, "/ua/admin/login", "/admin/login")
 Route::set('a3_core_loginscreen', '(<lng>/)'.A3_ROOT_URL.'/login')
     ->defaults(array(
