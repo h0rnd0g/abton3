@@ -19,6 +19,9 @@ class Controller_Install extends Controller_Base {
         // если система уже установлена, то делаем редирект в корень
         if (Instance_Security::get()->isInstalled())
             Instance_Routing::get()->abtonRedirect();
+
+        // чистим отметки об авторизации (если остались с предыдущей системы)
+        Instance_Security::get()->logout();
     }
 
 
@@ -75,6 +78,8 @@ class Controller_Install extends Controller_Base {
      */
     public function action_install()
     {
+        $error_handler = new Ajax_Errors(); // конструктор ошибок обработки запроса
+
         try
         {
             // защита от CSRF-атак (проверка)
@@ -89,7 +94,6 @@ class Controller_Install extends Controller_Base {
              */
 
             $data = Instance_Security::get()->parseAjaxData($_POST['data']);
-            $error_handler = new Ajax_Errors();
 
             // валидация данных запроса
 
@@ -104,6 +108,7 @@ class Controller_Install extends Controller_Base {
                 ->set('default.database', $data['mysql-database'])
                 ->set('default.username', $data['mysql-login'])
                 ->set('default.password', $data['mysql-password'])
+                ->set('cms_table_prefix', $data['mysql-prefix'])
                 ->save();
 
             Kohana::$config
@@ -138,7 +143,7 @@ class Controller_Install extends Controller_Base {
                     ->set('salt_length', 0);
             else
                 $security_config
-                    ->set('salt_length', 8); // TODO: длина соли должна быть кастомизируемой (решить как-нибудь либо вынести в класс безопасности)
+                    ->set('salt_length', Instance_Security::get()->getSaltLength());
 
             $security_config
                 ->save();
@@ -156,7 +161,9 @@ class Controller_Install extends Controller_Base {
             else
             {
                 // иначе возвращаем успех с необходимыми данными
-                $success_data = array();
+                $success_data = array(
+                    'root' => $data['misc-prefix'] // возвращаем префикс url админки, чтобы правильно сформировать редирект
+                );
                 Instance_Security::get()->ajaxResponse(true, $success_data);
 
                 Instance_Security::get()->markInstalled(); // ставим флаг о том, что установка произведена

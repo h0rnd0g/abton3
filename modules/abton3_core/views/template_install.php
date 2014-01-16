@@ -59,21 +59,21 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <label for="mysql-database"><?= $lang_array['label_database'] ?></label>
                         <div class="input-icon">
                             <i class="icon-hdd"></i>
-                            <input type="text" class="form-control not-empty mysql-group" name="mysql-database" placeholder="" value="">
+                            <input type="text" class="form-control not-empty mysql-group" name="mysql-database" placeholder="" value="abton3">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="mysql-login"><?= $lang_array['label_username'] ?></label>
                         <div class="input-icon">
                             <i class="icon-user"></i>
-                            <input type="text" class="form-control not-empty mysql-group" name="mysql-login" placeholder="" value="">
+                            <input type="text" class="form-control not-empty mysql-group" name="mysql-login" placeholder="" value="root">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="mysql-password"><?= $lang_array['label_password'] ?></label>
                         <div class="input-icon">
                             <i class="icon-lock"></i>
-                            <input type="password" class="form-control mysql-group" name="mysql-password" placeholder="" value="">
+                            <input type="password" class="form-control mysql-group" name="mysql-password" placeholder="" value="root">
                         </div>
                     </div>
                     <div class="form-group">
@@ -99,14 +99,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <label for="admin-email"><?= $lang_array['label_email'] ?></label>
                         <div class="input-icon">
                             <i class="icon-envelope"></i>
-                            <input type="text" class="form-control not-empty" name="admin-email" placeholder="">
+                            <input type="text" class="form-control not-empty" name="admin-email" placeholder="" value="dkkrid@gmail.com">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="admin-password"><?= $lang_array['label_password'] ?></label>
                         <div class="input-icon">
                             <i class="icon-lock"></i>
-                            <input type="text" class="form-control not-empty" name="admin-password" placeholder="">
+                            <input type="text" class="form-control not-empty" name="admin-password" placeholder="" value="123">
                         </div>
                     </div>
                 </div>
@@ -131,7 +131,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <label for="misc-siteurl"><?= $lang_array['label_siteurl'] ?></label>
                         <div class="input-icon">
                             <i class="icon-globe"></i>
-                            <input type="text" class="form-control not-empty" name="misc-siteurl" placeholder="http://www.site.com" value="">
+                            <input type="text" class="form-control not-empty" name="misc-siteurl" placeholder="http://www.site.com" value="123.com">
                         </div>
                     </div>
                     <div class="form-group">

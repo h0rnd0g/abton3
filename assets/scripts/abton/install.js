@@ -24,7 +24,7 @@ var a3_Install = function () {
                         // соединение прошло успешно
                         toastr.info(_lang_array['test_success_message'], _lang_array['test_success_title']);
 
-                        result = data.result;
+                        result = true;
                     }
                     else
                     {
@@ -38,16 +38,18 @@ var a3_Install = function () {
     }
 
     var installCMS = function () {
-        console.log('we are here');
         $.post(_install_ajax,
             {
                 data: $('form').serialize()
             })
             .success( function (data) {
-
                 if (data.result)
                 {
                     toastr.success(_lang_array['install_success_message'], _lang_array['install_success_title']);
+
+                    setTimeout(function () {
+                        location.href = '/' + data.root;
+                    }, 3000);
                 }
                 else
                 {

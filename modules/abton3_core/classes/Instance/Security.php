@@ -12,6 +12,22 @@ class Instance_Security extends Instance {
 
 
     /**
+     * @var int  для текущих настроек безопасности системы управления
+     */
+    protected $_salt_length = 8;
+
+
+    /**
+     * @return int возвращает длину соли
+     */
+    public function getSaltLength()
+    {
+        return
+            $this->_salt_length;
+    }
+
+
+    /**
      * Перевод строки JS serialize() в PHP массив
      *
      * @param $data строка JS serialize()
@@ -26,9 +42,15 @@ class Instance_Security extends Instance {
     }
 
 
-    public function ajaxResponse($code, $data = array())
+    /**
+     * @param bool $result результат выполнения ajax запроса (true, false)
+     * @param array $data
+     */
+    public function ajaxResponse($result, $data = array())
     {
-        $response = array_merge($data, array('result' => $code));
+        $response = array('result' => $result);
+        foreach ($data as $key => $value)
+            $response[$key] = $value;
 
         echo json_encode($response);
     }
@@ -194,7 +216,7 @@ class Instance_Security extends Instance {
                 Kohana::$config->load('security.salt_characters'));
 
         return
-            $salt.hash(Kohana::$config->load('security.hash_method'), $string.$salt);
+            $salt.hash(Kohana::$config->load('security.hash_method'), $salt.$string);
     }
 
 
@@ -215,7 +237,7 @@ class Instance_Security extends Instance {
 
         // возвращаем результат сравнения
         return
-            ($hash == hash(Kohana::$config->load('security.hash_method'), $password.$salt).$salt);
+            ($hash == $salt.hash(Kohana::$config->load('security.hash_method'), $salt.$password));
     }
 
 
