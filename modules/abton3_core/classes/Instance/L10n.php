@@ -21,6 +21,17 @@ class Instance_L10n extends Instance {
             self::$_language;
     }
 
+
+    /**
+     * @return array список существующих языков в системе управления
+     */
+    public function getExistingLanguages()
+    {
+        return
+            Kohana::$config->load('l10n.existing_languages');
+    }
+
+
     public function setLanguage($language)
     {
         // получаем массив доступных языков из файла конфигураций

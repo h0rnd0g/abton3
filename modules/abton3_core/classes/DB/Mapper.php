@@ -28,23 +28,24 @@ abstract class DB_Mapper
 
 
     /**
-     * Функция обрабатывает известные типы ошибок БД и возвращает
-     * ассоциативный массив с ключом 'code' - кодом ошибки.
+     * Функция обрабатывает известные типы ошибок БД и выбрасывает
+     * исключение DB_Exception с дополнительным полем - ассоциативным
+     * массиво с пропаршеной информацией из сообщения об ошибке (см. класс DB_Exception
      *
-     * Остальные ключи массива зависят от ошибки:
+     * Ключи этого массива зависят от ошибки:
      * 1) ERROR_DUPLICATE_ENTRY
      *      'field' - название поля таблицы с атрибутом UNIQUE, по которому было дублирование
      *      'value' - значение, которое дублируется по этому полю
      *
      * @param Database_Exception $e полученное исключение БД
-     * @return array данные про ошибку
+     * @throws DB_Exception
      */
     protected function parseDatabaseException(Database_Exception $e)
     {
-        $error['code'] = $e->getCode();
+        $code = $e->getCode();
         $message = $e->getMessage();
 
-        if ($error['code'] == self::ERROR_DUPLICATE_ENTRY)
+        if ($code == self::ERROR_DUPLICATE_ENTRY)
         {
             /*
              * Для ошибки с дублированием значения по полю с атрибутом UNIQUE
@@ -57,8 +58,7 @@ abstract class DB_Mapper
             $error['field'] = Helper_String::getStringBetween($message, 'key \'', '\'');
         }
 
-        return
-            $error;
+        throw new DB_Exception($error, $message, $code);
     }
 
 

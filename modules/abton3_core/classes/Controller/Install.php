@@ -41,6 +41,8 @@ class Controller_Install extends Controller_Base {
         $this->template->test_db_ajax = Instance_Routing::get()->route('core_install_test');
         $this->template->install_ajax = Instance_Routing::get()->route('core_install_perform');
 
+        $langs = Instance_L10n::get()->
+
         $this->template->token = Instance_Security::get()->getCSRFToken();
     }
 

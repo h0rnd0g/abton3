@@ -18,8 +18,6 @@ class Controller_Login extends Controller_Depended {
 //        DB_Model_Auth::get()->createTables();
 
 //        $profile = new DB_Object_User_Profile('Serhiy', '1992-01-01', '717021', 'developer');
-//            $user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, 'admin', '123', '123@123.com', DB_Object::TIMESTAMP_NOW);
-//            DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
 //        DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
 
 //        $user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByID(1);

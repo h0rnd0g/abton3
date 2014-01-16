@@ -266,8 +266,9 @@ class DB_Mapper_Auth extends DB_Mapper
 
             DB::query(null, 'ROLLBACK')->execute();
 
-            return
-                $this->parseDatabaseException($e);
+//            return
+//                $this->parseDatabaseException($e);
+            $this->parseDatabaseException($e);
         }
     }
 
