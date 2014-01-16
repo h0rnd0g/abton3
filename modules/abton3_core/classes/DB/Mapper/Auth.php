@@ -248,7 +248,8 @@ class DB_Mapper_Auth extends DB_Mapper
 
             // выполняем запросы в транзакции
             $query->execute();
-            $query_profile->execute();
+            if ($profile != null)
+                $query_profile->execute();
 
             DB::query(null, 'COMMIT')->execute();
 
@@ -260,6 +261,8 @@ class DB_Mapper_Auth extends DB_Mapper
             /*
              * Если ошибка, то откатываем транзакцию и парсим ошибку ее штатным методом маппера и возвращаем результат
              */
+
+            //throw new Exception($e->getMessage());
 
             DB::query(null, 'ROLLBACK')->execute();
 

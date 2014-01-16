@@ -5,28 +5,40 @@ var a3_Install = function () {
     var _install_ajax;
 
     var testDBConnection = function () {
-        $.post(_test_db_ajax,
-            {
+        var result = false;
+
+        $.ajax({
+            type: 'POST',
+            async: false, // так как функция должна возвращать результат выполнения ajax-запроса
+            url: _test_db_ajax,
+            data: {
                 hostname: $('[name="mysql-hostname"]').val(),
                 login: $('[name="mysql-login"]').val(),
                 password: $('[name="mysql-password"]').val(),
                 db: $('[name="mysql-database"]').val()
-            })
-            .success( function (data) {
-                if (data.result)
-                {
-                    // соединение прошло успешно
-                    toastr.info(_lang_array['test_success_message'], _lang_array['test_success_title']);
-                }
-                else
-                {
-                    // невозможно установить соединение
-                    toastr.error(_lang_array['test_error_message'], _lang_array['test_error_title']);
+            },
+            success:
+                function (data) {
+                    if (data.result)
+                    {
+                        // соединение прошло успешно
+                        toastr.info(_lang_array['test_success_message'], _lang_array['test_success_title']);
+
+                        result = data.result;
+                    }
+                    else
+                    {
+                        // невозможно установить соединение
+                        toastr.error(_lang_array['test_error_message'], _lang_array['test_error_title']);
+                    }
                 }
             });
+
+        return result;
     }
 
     var installCMS = function () {
+        console.log('we are here');
         $.post(_install_ajax,
             {
                 data: $('form').serialize()
@@ -81,9 +93,11 @@ var a3_Install = function () {
             _install_ajax = install_ajax;
 
             $('#submit-install').click(function () {
-                // если нету ошибок (все поля заполнены), то пробуем установить систему
+                // если нету ошибок (все поля заполнены)
                 if (validateFieldsEmpty())
-                    installCMS();
+                    // ... тогда пробуем проверить соединение с БД
+                    if (testDBConnection())
+                        installCMS(); // раз получилось установить соединение с БД, то пробуем установить систему
             });
 
             $('#test-connection').click(function () {

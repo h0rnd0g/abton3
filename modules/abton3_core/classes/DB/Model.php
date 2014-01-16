@@ -44,9 +44,15 @@ abstract class DB_Model
 
     /**
      * Создание таблиц модели
+     *
+     * @param bool $drop_if_exist если true, то таблицы сначала будут удалены (если существуют с такими же именами)
      */
-    public function createTables()
+    public function createTables($drop_if_exist = false)
     {
+        // если передан флаг true удаления существующих
+        if ($drop_if_exist)
+            $this->dropTables(); // то сперва пробуем удалить таблицы
+
         // вызываем констурктор таблиц нашего текущего маппера
         $this->_mapper_instance->createTables();
     }

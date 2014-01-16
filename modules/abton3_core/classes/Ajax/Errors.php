@@ -27,7 +27,10 @@ class Ajax_Errors {
      */
     public function addError($error, $params = array())
     {
-        $this->_errors[] = $error;
+        $this->_errors[] = array(
+            'name' => $error,
+            'params' => $params
+        );
     }
 
 

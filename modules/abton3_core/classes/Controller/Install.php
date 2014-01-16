@@ -12,6 +12,16 @@ class Controller_Install extends Controller_Base {
     public $template = 'template_install';
 
 
+    public function before()
+    {
+        parent::before();
+
+        // если система уже установлена, то делаем редирект в корень
+        if (Instance_Security::get()->isInstalled())
+            Instance_Routing::get()->abtonRedirect();
+    }
+
+
     /**
      * Базовый action инсталлятора
      */
@@ -84,7 +94,10 @@ class Controller_Install extends Controller_Base {
             // валидация данных запроса
 
 
-            // подготовка данных и их запись в файлы конфигураций
+            /*
+             * Подготовка данных и их запись в файлы конфигураций
+             */
+
             Kohana::$config
                 ->load('database')
                 ->set('default.hostname', $data['mysql-hostname'])
@@ -93,25 +106,63 @@ class Controller_Install extends Controller_Base {
                 ->set('default.password', $data['mysql-password'])
                 ->save();
 
+            Kohana::$config
+                ->load('routing')
+                ->set('site_url', $data['misc-siteurl'])
+                ->set('root_url_part', $data['misc-prefix'])
+                ->save();
+
+//            Kohana::$config
+//                ->load('l10n')
+//                ->set('default_language', $data['123'])
+//                ->set('available_languages', $data['123'])
+//                ->save();
+
             $hash_data = explode(',', $data['security-hash-func']); // разбиваем переданную строку на два значения
             $hash_func_name = $hash_data[0]; // 1) название алгоритма хэширования
             $hash_length = $hash_data[1];    // 2) длина хэша указанного алгоритма
             $use_salt = isset($data['security-use-salt']);
 
-            Kohana::$config
-                ->load('security')
+            // запись параметров безопасности
+            $security_config = Kohana::$config
+                ->load('security');
+
+            $security_config
                 ->set('hash_method', $hash_func_name)
                 ->set('hash_length', $hash_length)
-                ->set('use_salt', $use_salt)
+                ->set('use_salt', $use_salt);
+
+            // если не используем соль, то и длина не должна быть указана
+            if ($use_salt == false)
+                $security_config
+                    ->set('salt_length', 0);
+            else
+                $security_config
+                    ->set('salt_length', 8); // TODO: длина соли должна быть кастомизируемой (решить как-нибудь либо вынести в класс безопасности)
+
+            $security_config
                 ->save();
 
-            // создаем таблицы в БД (системные + подключенных модулей)
-
+            // создаем таблицы в БД (системные + подключенных модулей), предварительно удаляя (флаг true)
+            DB_Model_Auth::get()->createTables(true);
 
             // создаем пользователя
+            $user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, $data['admin-login'], $data['admin-password'], $data['admin-email'], DB_Object::TIMESTAMP_NOW);
+            DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
 
+            // если были ошибки, то возвращаем их
+            if ($error_handler->haveErrors())
+                Instance_Security::get()->ajaxResponse(false, $error_handler->getErrors());
+            else
+            {
+                // иначе возвращаем успех с необходимыми данными
+                $success_data = array();
+                Instance_Security::get()->ajaxResponse(true, $success_data);
 
-            Instance_Security::get()->ajaxResponse($error_handler->haveErrors(), $error_handler->getErrors());
+                Instance_Security::get()->markInstalled(); // ставим флаг о том, что установка произведена
+                return; // заканчиваем выполнение установки
+            }
+
         }
         catch (Exception $e)
         {
@@ -121,15 +172,14 @@ class Controller_Install extends Controller_Base {
             Instance_Security::get()->ajaxResponse(false, $error_handler->getErrors());
         }
 
-        // если были ошибки
-        if ($error_handler->haveErrors())
-        {
-            // ... выполняем откат
-        }
-        else
-        {
-            Instance_Security::get()->markInstalled(); // ... иначе ставим флаг о том, что установка произведена
-        }
+        /*
+         * При отсутствии ошибок идет выброс из функции, поэтому
+         * сюда дойдем только при наличии ошибок.
+         *
+         * Следовательно, нужно выполнить откат
+         */
+
+        DB_Model_Auth::get()->dropTables();
     }
 
 }
