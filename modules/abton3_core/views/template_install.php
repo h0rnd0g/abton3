@@ -143,13 +143,17 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                         <span class="help-block"><?= $lang_array['label_cmsprefix_help'] ?></span>
                     </div>
                     <div class="form-group">
-                        <label><?= $lang_array['label_l10n_available'] ?>:</label>
-                        <input type="checkbox" class="form-control misc-langs" name="misc-langs[]" value="ua" checked> українська
+                        <label><?= $lang_array['label_l10n_available'] ?>:</label><p>
+                        <? foreach ($existing_languages as $lang_name => $lang_title): ?>
+                            <input type="checkbox" class="form-control misc-langs" name="misc-langs[]" value="<?= $lang_name ?>" checked> <?= $lang_title ?>
+                        <? endforeach; ?>
                     </div>
                     <div class="form-group">
                         <label><?= $lang_array['label_l10n_default'] ?></label>
                         <select class="form-control" name="misc-l10n-default">
-                            <option value="ua">українська</option>
+                            <? foreach ($existing_languages as $lang_name => $lang_title): ?>
+                                <option class="misc-langs-list" value="<?= $lang_name ?>"><?= $lang_title ?></option>
+                            <? endforeach; ?>
                         </select>
                     </div>
                 </div>

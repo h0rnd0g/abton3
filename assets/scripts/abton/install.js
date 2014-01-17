@@ -38,6 +38,16 @@ var a3_Install = function () {
     }
 
     var installCMS = function () {
+        // проверка на отключенность одного из checkbox (если выбрана всего лишь один язык локализации)
+        // причина подобной проверки: отключенные элементы не возвращает serialize() формы
+        var checked = $('.misc-langs:checked');
+        var flag = false;
+        if (checked.prop('disabled', true))
+        {
+            checked.prop('disabled', false);
+            flag = true;
+        }
+
         $.post(_install_ajax,
             {
                 data: $('form').serialize()
@@ -48,7 +58,7 @@ var a3_Install = function () {
                     toastr.success(_lang_array['install_success_message'], _lang_array['install_success_title']);
 
                     setTimeout(function () {
-                        location.href = '/' + data.root;
+                        // location.href = '/' + data.root;
                     }, 3000);
                 }
                 else
@@ -56,6 +66,10 @@ var a3_Install = function () {
                     // ошибка
                 }
             });
+
+        // если есть отметка о изменениях активности элемента, то возвращаем назад
+        if (flag)
+            checked.prop('disabled', true);
     }
 
     var validateFieldsEmpty = function (additional_selector) {
@@ -106,6 +120,28 @@ var a3_Install = function () {
                 // проверяем соединение с БД по указанным данным, если заполнены необходимые поля блока настроек БД
                 if (validateFieldsEmpty('.mysql-group'))
                     testDBConnection();
+            });
+
+            // обработчики элементов форм выбора локализации
+            $('.misc-langs').click(function () {
+                var combo_element = $('.misc-langs-list[value="'+$(this).val()+'"]');
+                var status = $(this).prop('checked');
+
+                // если выбран только один язык, то его checkbox становится не активным
+                // (всегда должен быть хотя бы один выбранный язык) и наоборот
+                var checked = $('.misc-langs:checked');
+                if (checked.length == 1)
+                    checked.prop('disabled', true);
+                else
+                    checked.prop('disabled', false);
+
+                // изменяем выбранный язык, если текущий был заблокирован
+                var select = $('[name="misc-l10n-default"]');
+                if (select.val() == combo_element.val())
+                    select.val(checked.val());
+
+                // если соответствующий checkbox не отмечен, то элемент списка заблокирован (и наоборот)
+                combo_element.prop('disabled', !status);
             });
         }
     }

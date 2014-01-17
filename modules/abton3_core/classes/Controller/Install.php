@@ -41,7 +41,7 @@ class Controller_Install extends Controller_Base {
         $this->template->test_db_ajax = Instance_Routing::get()->route('core_install_test');
         $this->template->install_ajax = Instance_Routing::get()->route('core_install_perform');
 
-        $langs = Instance_L10n::get()->
+        $this->template->existing_languages = Instance_L10n::get()->getExistingLanguages();
 
         $this->template->token = Instance_Security::get()->getCSRFToken();
     }
@@ -58,10 +58,13 @@ class Controller_Install extends Controller_Base {
         // отменяем отрисовку шаблона (так как обработчик ajax)
         $this->auto_render = false;
 
+        // получаем входные данные
+        $data = Instance_Security::get()->getAjaxSource();
+
         // проверяем соединение с БД MySQL
         try
         {
-            $link = mysqli_connect($_POST['hostname'], $_POST['login'], $_POST['password'], $_POST['db']);
+            $link = mysqli_connect($data['hostname'], $data['login'], $data['password'], $data['db']);
             mysqli_close($link);
 
             $success = true; // успех
@@ -95,7 +98,8 @@ class Controller_Install extends Controller_Base {
              * Обработка запроса на установку
              */
 
-            $data = Instance_Security::get()->parseAjaxData($_POST['data']);
+            $source = Instance_Security::get()->getAjaxSource();
+            $data = Instance_Security::get()->parseAjaxData($source['data']);
 
             // валидация данных запроса
 
@@ -103,6 +107,12 @@ class Controller_Install extends Controller_Base {
             /*
              * Подготовка данных и их запись в файлы конфигураций
              */
+
+            Kohana::$config
+                ->load('l10n')
+                ->set('available_languages', $data['misc-langs'])
+                ->set('default_language', $data['misc-l10n-default'])
+                ->save();
 
             Kohana::$config
                 ->load('database')
@@ -168,7 +178,7 @@ class Controller_Install extends Controller_Base {
                 );
                 Instance_Security::get()->ajaxResponse(true, $success_data);
 
-                Instance_Security::get()->markInstalled(); // ставим флаг о том, что установка произведена
+                //Instance_Security::get()->markInstalled(); // ставим флаг о том, что установка произведена
                 return; // заканчиваем выполнение установки
             }
 

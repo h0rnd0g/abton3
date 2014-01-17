@@ -42,6 +42,14 @@ class Instance_Security extends Instance {
     }
 
 
+    public function getAjaxSource()
+    {
+        return
+            $_POST;
+    }
+
+
+
     /**
      * @param bool $result результат выполнения ajax запроса (true, false)
      * @param array $data

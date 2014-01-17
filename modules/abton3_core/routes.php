@@ -69,4 +69,3 @@ Route::set('a3_core_default', '(<lng>/)'.A3_ROOT_URL)
         'controller' => 'login',
         'action'     => 'redirect',
     ));
-
