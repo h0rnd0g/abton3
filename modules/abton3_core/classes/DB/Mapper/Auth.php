@@ -46,6 +46,8 @@ class DB_Mapper_Auth extends DB_Mapper
                 PRIMARY KEY (id)
             ) CHARACTER SET utf8 COLLATE utf8_general_ci, engine=InnoDB;";
 
+        // TODO: добавити привязку по зовнішньому ключу
+
         DB::query(null, $sql_create)
             ->execute();
     }

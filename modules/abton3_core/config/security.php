@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 return array(
-	'installed' => false,
+	'installed' => true,
 	'hash_method' => 'sha512',
 	'hash_length' => 128,
 	'use_salt' => true,
