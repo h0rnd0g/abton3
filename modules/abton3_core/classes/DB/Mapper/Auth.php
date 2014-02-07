@@ -234,15 +234,17 @@ class DB_Mapper_Auth extends DB_Mapper
         $query_profile = DB::insert($this->_tables['profiles']);
 
         $profile = $user->_getProfile(); // получаем профиль прямиком (без autoload, чтобы не делать лишнего запроса)
-        if ($profile != null) // если указан профиль
-        {
-            // то записываем данные в новую запись
-            $query_profile->set('username', $profile->getUsername());
-            $query_profile->set('birthdate', $profile->getBirthdate());
-            $query_profile->set('phone', $profile->getPhone());
-            $query_profile->set('occupation', $profile->getOccupation());
-            $query_profile->set('about', $profile->getAbout());
-        }
+
+        // если не указан профиль
+        if ($profile == null)
+            $profile = new DB_Object_User_Profile(); // то создаем его
+
+        // записываем данные в новую запись
+        $query_profile->set('username', $profile->getUsername());
+        $query_profile->set('birthdate', $profile->getBirthdate());
+        $query_profile->set('phone', $profile->getPhone());
+        $query_profile->set('occupation', $profile->getOccupation());
+        $query_profile->set('about', $profile->getAbout());
 
         try
         {

@@ -167,8 +167,6 @@ class Controller_Install extends Controller_Base {
             $user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, $data['admin-login'], $data['admin-password'], $data['admin-email'], DB_Object::TIMESTAMP_NOW);
             DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
 
-            // TODO: створювати профіль при інсталяції
-
             // если были ошибки, то возвращаем их
             if ($error_handler->haveErrors())
                 Instance_Security::get()->ajaxResponse(false, $error_handler->getErrors());
