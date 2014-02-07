@@ -15,7 +15,6 @@ class Controller_Depended extends Controller_Base {
     {
         parent::before();
 
-
         // проверка на установку
         if (!Instance_Security::get()->isInstalled())
         {
