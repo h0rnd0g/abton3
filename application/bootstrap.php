@@ -113,6 +113,8 @@ Kohana::init(array(
 /**
  * Attach the file write to logging. Multiple writers are supported.
  */
+
+
 Kohana::$log->attach(new Log_File(APPPATH.'logs'));
 
 /**
