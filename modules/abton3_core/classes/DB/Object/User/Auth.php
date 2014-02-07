@@ -100,6 +100,11 @@ class DB_Object_User_Auth extends DB_Object
             $this->_profile;
     }
 
+    public function setProfile(DB_Object_User_Profile $profile)
+    {
+        $this->_profile = $profile;
+    }
+
 
     /**
      * Конструктор объекта данных авторизации пользователя

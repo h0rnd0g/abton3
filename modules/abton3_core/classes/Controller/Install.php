@@ -178,7 +178,7 @@ class Controller_Install extends Controller_Base {
                 );
                 Instance_Security::get()->ajaxResponse(true, $success_data);
 
-                //Instance_Security::get()->markInstalled(); // ставим флаг о том, что установка произведена
+                Instance_Security::get()->markInstalled(); // ставим флаг о том, что установка произведена
                 return; // заканчиваем выполнение установки
             }
 

@@ -18,12 +18,20 @@ class Controller_Login extends Controller_Depended {
 //        DB_Model_Auth::get()->createTables();
 
 //        $profile = new DB_Object_User_Profile('Serhiy', '1992-01-01', '717021', 'developer');
+//
+//
+//        $user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByID(1);
+//
+//        $user->setProfile($profile);
+//
+//        DB_Model_Auth::get()->getMapperInstance()->saveUserAuth($user);
+
 //        DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
 
-//        $user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByID(1);
-//        $user->getProfile();
 //
-//        $user->getProfile()->setAbout('here is about2');
+//
+//
+//
 //
 //        DB_Model_Auth::get()->getMapperInstance()->saveUserAuth($user);
 //
