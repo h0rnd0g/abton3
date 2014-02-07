@@ -107,6 +107,9 @@ Kohana::init(array(
     'index_file' => FALSE,
 ));
 
+
+
+
 /**
  * Attach the file write to logging. Multiple writers are supported.
  */
