@@ -58,7 +58,7 @@ var a3_Install = function () {
                     toastr.success(_lang_array['install_success_message'], _lang_array['install_success_title']);
 
                     setTimeout(function () {
-                        // location.href = '/' + data.root;
+                        location.href = '/' + data.root;
                     }, 3000);
                 }
                 else
