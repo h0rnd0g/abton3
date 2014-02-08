@@ -11,11 +11,16 @@ class Controller_Profile extends Controller_Authorized {
      */
     public function action_index()
     {
+        $view = View::factory('profile/profile_index');
+
         // передаем языковые константы
-        $this->template->plugin_array = Instance_L10n::get()->getConstantsArray('profile/profile_page');
+        $l10n_array = Instance_L10n::get()->getConstantsArray('profile/profile_page');
+
+        $this->template->plugin_array = $l10n_array;
+        $view->l10n_array = $l10n_array;
 
         // получаем вид и передаем туда необходимые значения
-        $this->template->content = View::factory('profile/profile_index');
+        $this->template->content = $view;
     }
 
 }

@@ -39,56 +39,56 @@ class DB_Object_User_Profile
     public function getUsername()
     {
         return
-            $this->_username;
+            Instance_Security::get()->screenString($this->_username);
     }
 
     public function setUsername($username)
     {
-        $this->_username = $username;
+        $this->_username = Instance_Security::get()->screenString($username);
     }
 
     public function getBirthdate()
     {
         return
-            $this->_birthdate;
+            Instance_Security::get()->screenString($this->_birthdate);
     }
 
     public function setBirthdate($date)
     {
-        $this->_birthdate = $date;
+        $this->_birthdate = Instance_Security::get()->screenString($date);
     }
 
     public function getPhone()
     {
         return
-            $this->_phone;
+            Instance_Security::get()->screenString($this->_phone);
     }
 
     public function setPhone($phone)
     {
-        $this->_phone = $phone;
+        $this->_phone = Instance_Security::get()->screenString($phone);
     }
 
     public function getOccupation()
     {
         return
-            $this->_occupation;
+            Instance_Security::get()->screenString($this->_occupation);
     }
 
     public function setOccupation($occupation)
     {
-        $this->_occupation = $occupation;
+        $this->_occupation = Instance_Security::get()->screenString($occupation);
     }
 
     public function getAbout()
     {
         return
-            $this->_about;
+            Instance_Security::get()->screenString($this->_about);
     }
 
     public function setAbout($about)
     {
-        $this->_about = $about;
+        $this->_about = Instance_Security::get()->screenString($about);
     }
 
 
@@ -96,6 +96,7 @@ class DB_Object_User_Profile
      * Конструктор объекта данных профиля пользователя
      *
      * @param string $username имя пользователя
+     * @param string $birthdate имя пользователя
      * @param string $phone телефон пользователя
      * @param string $occupation должность
      * @param string $about дополнительная информация
@@ -103,11 +104,11 @@ class DB_Object_User_Profile
     function __construct($username = '', $birthdate = '0000-00-00', $phone = '', $occupation = '', $about = '')
     {
         // инциализация
-        $this->_username = $username;
-        $this->_birthdate = $birthdate;
-        $this->_phone = $phone;
-        $this->_occupation = $occupation;
-        $this->_about = $about;
+        $this->setUsername($username);
+        $this->setBirthdate($birthdate);
+        $this->setPhone($phone);
+        $this->setOccupation($occupation);
+        $this->setAbout($about);
     }
 
 }

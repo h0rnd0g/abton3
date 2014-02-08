@@ -105,6 +105,17 @@ class DB_Object_User_Auth extends DB_Object
         $this->_profile = $profile;
     }
 
+    public function getRepresentativeName()
+    {
+        $profile = $this->getProfile();
+
+        if ($profile->getUsername() != '')
+            return
+                $profile->getUsername();
+
+        return
+            $this->_login;
+    }
 
     /**
      * Конструктор объекта данных авторизации пользователя
@@ -120,7 +131,6 @@ class DB_Object_User_Auth extends DB_Object
     function __construct($id, $login, $password, $email, $added, $password_as_hash = false, DB_Object_User_Profile $profile = null)
     {
         // инциализация
-        $this->_login = $login;
         $this->_email = $email;
         $this->_profile = $profile;
 

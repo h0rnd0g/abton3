@@ -301,6 +301,17 @@ class Instance_Security extends Instance {
     }
 
 
+    /**
+     * Экранирование строк от инъекций
+     */
+    public function screenString($string)
+    {
+        $result = strip_tags($string);
+
+        return
+            $result;
+    }
+
     /*
      * Инициализация
      */
