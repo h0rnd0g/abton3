@@ -7,5 +7,9 @@ return
     (
         'ua' => array(
             'title' => 'Ololo',
+
+            'index' => 'Dummy plugin',
+            'show' => 'show something',
+            'care' => 'here is care',
         ),
     );

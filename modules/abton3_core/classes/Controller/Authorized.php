@@ -48,6 +48,8 @@ class Controller_Authorized extends Controller_Depended {
         $template_lang_array = Instance_L10n::get()->getConstantsArray('index_page');
         $this->template->template_array = $template_lang_array;
 
+        // передаем дерево меню
+        $this->template->menu = Instance_Plugins::get()->getMenu();
 
         /*
          * защита ajax (токен для предотвращения CSRF атак)

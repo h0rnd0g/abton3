@@ -18,6 +18,9 @@ return
 
             'search_placeholder' => 'Пошук...',
 
+            'user_messages_empty' => 'Немає нових повідомлень',
+            'user_messages_goto' => 'Перейти до всіх',
+
             'theme_picker_title' => 'Кольорова схема',
                 'theme_picker_layout' => 'Шаблон',
                     'theme_picker_layout_fluid' => 'Текучий',
@@ -32,6 +35,6 @@ return
                     'theme_picker_footer_fixed' => 'Фіксований',
                     'theme_picker_footer_default' => 'По замовчуванню',
 
-            'index_copyright' => '2013 &copy; Dreamext Web',
+            'index_copyright' => '2013-2014 &copy; Dreamext Web',
         ),
     );

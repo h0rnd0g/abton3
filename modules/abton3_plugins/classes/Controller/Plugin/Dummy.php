@@ -6,10 +6,39 @@
  */
 class Controller_Plugin_Dummy extends Controller_Plugin {
 
+    public static function getMenuTree()
+    {
+        return
+            array(
+                'index' => array(
+                    'icon' => 'cogs',
+                    'path' => '',
+                ),
+                'show' => array(
+                    'icon' => '',
+                    'path' => 'index',
+                ),
+                'care' => array(
+                    'icon' => '',
+                    'path' => 'care',
+                ),
+            );
+    }
+
     // базовый метод
     public function action_index()
     {
-        //throw new Exception(self::getPluginName());
+        $this->template->content = '123';
+    }
+
+    public function action_show()
+    {
+
+    }
+
+    public function action_care()
+    {
+        $this->template->content = '123';
     }
 
 }

@@ -28,7 +28,6 @@ return
             'login_error_auth_title' => 'Помилка авторизації',
             'login_error_auth_description' => 'Перевірте введені дані та спробуйте ще раз',
 
-            'login_copyright' => '2013 &copy; Dreamext Web',
-
+            'login_copyright' => '2013-2014 &copy; Dreamext Web',
         ),
     );

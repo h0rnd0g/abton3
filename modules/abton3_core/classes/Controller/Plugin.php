@@ -60,6 +60,9 @@ class Controller_Plugin extends Controller_Authorized {
          * обработка плагино-зависимых данных
          */
 
+        // передаем имя текущего плагина
+        $this->template->plugin_name = self::$_name;
+
         // получаем массив локализации плагина
         $plugin_lang_array = Instance_L10n::get()->getConstantsArray('plugin/'.self::$_name);
         $this->template->plugin_array = $plugin_lang_array;
@@ -72,7 +75,8 @@ class Controller_Plugin extends Controller_Authorized {
 
     public static function getMenuTree()
     {
-
+        return
+            array();
     }
 
 

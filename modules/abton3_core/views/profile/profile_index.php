@@ -4,7 +4,8 @@
         <div class="tabbable tabbable-custom tabbable-full-width">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#tab_1_1" data-toggle="tab"><?= $l10n_array['tab_overview'] ?></a></li>
-                <li><a href="#tab_1_3" data-toggle="tab"><?= $l10n_array['tab_account'] ?></a></li>
+                <!--<li><a href="#tab_1_3" data-toggle="tab"><?= $l10n_array['tab_account'] ?></a></li>-->
+                <!-- TODO: editing of profile -->
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active" id="tab_1_1">
@@ -390,4 +391,3 @@
     </div>
 </div>
 <!--end tab-pane-->
-</div>

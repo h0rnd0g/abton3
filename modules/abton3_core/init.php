@@ -16,6 +16,8 @@ Cookie::$salt = 'abton3_cms_salt1!2@3#4$5%'; // соль для защиты х�
 Cookie::$httponly = true; // запрещаем доступ к cookie из скриптов
 
 /**
- * Инициализация роутов ядра
+ * Инициализация роутов ядра и плагинов
  */
 require_once MODPATH.'abton3_core/routes.php';
+
+Instance_Plugins::get()->formPluginRoutes();
