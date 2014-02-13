@@ -28,10 +28,10 @@ class Instance_Plugins extends Instance {
         {
             $controller = 'Controller_Plugin_'.$plugin;
 
-            Route::set('a3_core_plugins', '(<lng>/)'.A3_ROOT_URL.'/'.strtolower($plugin).'(/<action>)')
+            Route::set('a3_core_plugins_'.strtolower($plugin), '(<lng>/)'.A3_ROOT_URL.'/'.strtolower($plugin).'(/<action>)')
                 ->defaults(array(
                     'directory' => 'plugin',
-                    'controller' => 'dummy',
+                    'controller' => strtolower($plugin),
                 ));
 
             $routes = $controller::getMenuTree();
@@ -52,6 +52,7 @@ class Instance_Plugins extends Instance {
                 $tree[] = array(
                     'title' => $template_array[$key],
                     'href' => Instance_Routing::get()->getPrefixHref().strtolower($plugin).'/'.$route['path'],
+                    'route' => strtolower($plugin).'/'.$route['path'],
                     'icon' => $route['icon'],
                     'action' => $route['path']
                 );

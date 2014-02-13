@@ -45,7 +45,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- BEGIN TOP NAVIGATION BAR -->
 <div class="header-inner">
 <!-- BEGIN LOGO -->
-<a class="navbar-brand" href="index.html">
+<a class="navbar-brand" href="<?= Instance_Routing::get()->makeUrl('') ?>">
     <img src="/assets/img/logo-big.png" alt="logo" class="img-responsive" />
 </a>
 <!-- END LOGO -->
@@ -201,12 +201,14 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <? $iter_count = 0; ?>
     <? foreach ($menu as $item): ?>
         <?
+            $this_selected = false;
             $class = "";
             $span_selected = "";
             if (isset($plugin_name) and ($plugin_name == $item['name']))
             {
                 $class = "active";
                 $span_selected = '<span class="selected"></span>';
+                $this_selected = true;
             }
 
             if ($iter_count == 0)
@@ -235,7 +237,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                     <? for ($i = 1; $i < count($item['tree']); $i++): ?>
                         <?
                             $class = "";
-                            if (Request::$current->action() == $item['tree'][$i]['action'])
+                            if ((Request::$current->action() == $item['tree'][$i]['action']) and ($this_selected))
                                 $class = "active";
                         ?>
                         <li class="<?= $class ?>">

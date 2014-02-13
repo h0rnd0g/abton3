@@ -44,6 +44,7 @@ class Instance_Routing extends Instance {
      * @param $route_name имя роута (без префикса a3_ !!!)
      * @param null $lang язык, который будет передаваться в роут
      * @param array $params остальные параметры (если есть) для передачи в роут
+     * @return string
      */
     public function route($route_name, $lang = null, array $params = array())
     {
@@ -90,7 +91,10 @@ class Instance_Routing extends Instance {
             $lang = Instance_L10n::get()->getLanguage();
 
         if (!isset($path))
-            $path = 'plugin';
+        {
+            $tree = Instance_Plugins::get()->getMenu();
+            $path = $tree[0]['tree'][0]['route'];
+        }
 
         HTTP::redirect('/'.$lang.'/'.Instance_Routing::get()->getRootUrl().'/'.$path);
     }

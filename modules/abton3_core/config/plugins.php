@@ -3,5 +3,6 @@
 return array(
     'included' => array(
         'Dummy',
+        'Navigation'
     ),
 );

@@ -4,23 +4,23 @@
  * Class Controller_Plugin_Dummy
  *   Плагин-пустышка (для тестов)
  */
-class Controller_Plugin_Dummy extends Controller_Plugin {
+class Controller_Plugin_Navigation extends Controller_Plugin {
 
     public static function getMenuTree()
     {
         return
             array(
                 'index' => array(
-                    'icon' => 'cogs',
+                    'icon' => 'list',
                     'path' => '',
                 ),
-                'show' => array(
+                'pages' => array(
                     'icon' => '',
                     'path' => 'index',
                 ),
-                'care' => array(
+                'static' => array(
                     'icon' => '',
-                    'path' => 'care',
+                    'path' => 'static',
                 ),
             );
     }
@@ -28,12 +28,17 @@ class Controller_Plugin_Dummy extends Controller_Plugin {
     // базовый метод
     public function action_index()
     {
-        $this->template->content = 'index';
+        //$this->template->content = '123';
     }
 
-    public function action_care()
+    public function action_pages()
     {
-        $this->template->content = 'care';
+
+    }
+
+    public function action_static()
+    {
+        $this->template->content = '123';
     }
 
 }
