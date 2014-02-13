@@ -28,12 +28,7 @@ class Controller_Plugin_Navigation extends Controller_Plugin {
     // базовый метод
     public function action_index()
     {
-        //$this->template->content = '123';
-    }
-
-    public function action_pages()
-    {
-
+        DB_Model_Navigation::get()->getMapperInstance()->createTables();
     }
 
     public function action_static()
