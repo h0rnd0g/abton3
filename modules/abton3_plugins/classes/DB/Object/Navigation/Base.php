@@ -6,6 +6,6 @@
 class DB_Object_Navigation_Base extends DB_Object
 {
 
-    protected $ololo;
+    //protected $;
 
 }

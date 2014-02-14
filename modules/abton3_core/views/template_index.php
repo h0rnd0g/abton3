@@ -31,6 +31,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <link href="/assets/css/plugins.css" rel="stylesheet" type="text/css"/>
     <link href="/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
     <link href="/assets/css/custom.css" rel="stylesheet" type="text/css"/>
+    <? foreach ($css as $style): ?>
+        <?= HTML::style($style); ?>
+    <? endforeach; ?>
     <!-- END THEME STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
@@ -394,6 +397,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script src="/assets/scripts/app.js"></script>
 <script src="/assets/scripts/ui-general.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- BEGIN PLUGIN SCRIPTS -->
+<? foreach ($js as $script): ?>
+    <?= HTML::script($script); ?>
+<? endforeach; ?>
+<!-- END PLUGIN SCRIPTS -->
 <script>
     jQuery(document).ready(function() {
         // initiate layout and plugins
