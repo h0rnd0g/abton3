@@ -2,8 +2,8 @@
 
 return array(
     'included' => array(
-        'Navigation',
-        'Feedback',
+//        'Navigation',
+//        'Feedback',
         'Articles',
     ),
 );

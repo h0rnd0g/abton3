@@ -76,6 +76,7 @@ class Controller_Plugin extends Controller_Authorized {
          */
 
         // получаем и передаем информацию о стилях и скриптах
+        $this->script('/assets/scripts/abton/plugins/'.self::$_name.'.js'); // подключаем скрипт плагина
         $this->formJsAndCSS();
         $this->template->css = $this->_includes['css'];
         $this->template->js = $this->_includes['js'];
@@ -86,6 +87,8 @@ class Controller_Plugin extends Controller_Authorized {
         // получаем массив локализации плагина
         $plugin_lang_array = Instance_L10n::get()->getConstantsArray('plugin/'.self::$_name);
         View::set_global('plugin_array', $plugin_lang_array);
+
+        View::set_global('ajax_url', Instance_Routing::get()->makeUrl(self::$_name.'/ajax'));
     }
 
 

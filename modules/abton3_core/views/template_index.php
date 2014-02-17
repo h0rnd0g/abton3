@@ -401,6 +401,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script src="/assets/scripts/ui-general.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN PLUGIN SCRIPTS -->
+<script>
+    // объявляем глобально путь к ajax роуту плагина
+    var ajax_url = '<?= $ajax_url ?>';
+</script>
+
 <? if (isset($js)): ?>
     <? foreach ($js as $script): ?>
         <?= HTML::script($script); ?>
@@ -412,6 +417,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         // initiate layout and plugins
         App.init();
         UIGeneral.init();
+        a3_Plugin.init();
 
         <?= Instance_Messages::get()->getMessagesScript(); ?>
     });
