@@ -71,12 +71,12 @@
             <?= $lang_array['login_enter'] ?> <i class="m-icon-swapright m-icon-white"></i>
         </button>
     </div>
-    <div class="forget-password">
+    <!--<div class="forget-password">
         <h4><?= $lang_array['login_forget_password'] ?></h4>
         <p>
             <a href="javascript:;" id="forget-password"><?= $lang_array['login_restore_password_link'] ?></a>
         </p>
-    </div>
+    </div>--> <!-- TODO: forget password! -->
 </form>
 <!-- END LOGIN FORM -->
 <!-- BEGIN FORGOT PASSWORD FORM -->

@@ -31,9 +31,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
     <link href="/assets/css/plugins.css" rel="stylesheet" type="text/css"/>
     <link href="/assets/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
     <link href="/assets/css/custom.css" rel="stylesheet" type="text/css"/>
-    <? foreach ($css as $style): ?>
-        <?= HTML::style($style); ?>
-    <? endforeach; ?>
+    <? if (isset($css)): ?>
+        <? foreach ($css as $style): ?>
+            <?= HTML::style($style); ?>
+        <? endforeach; ?>
+    <? endif; ?>
     <!-- END THEME STYLES -->
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link href="/assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
@@ -185,8 +187,8 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
         <div class="sidebar-toggler hidden-phone"></div>
         <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
     </li>
-    <li>
-        <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+    <!--<li>
+
         <form class="sidebar-search" action="extra_search.html" method="POST">
             <div class="form-container">
                 <div class="input-box">
@@ -196,8 +198,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
                 </div>
             </div>
         </form>
-        <!-- END RESPONSIVE QUICK SEARCH FORM -->
-    </li>
+
+    </li>-->
+    <!-- TODO: search form! -->
 
     <!-- Меню CMS -->
 
@@ -398,9 +401,11 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <script src="/assets/scripts/ui-general.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN PLUGIN SCRIPTS -->
-<? foreach ($js as $script): ?>
-    <?= HTML::script($script); ?>
-<? endforeach; ?>
+<? if (isset($js)): ?>
+    <? foreach ($js as $script): ?>
+        <?= HTML::script($script); ?>
+    <? endforeach; ?>
+<? endif; ?>
 <!-- END PLUGIN SCRIPTS -->
 <script>
     jQuery(document).ready(function() {

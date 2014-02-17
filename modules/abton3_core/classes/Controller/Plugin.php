@@ -85,7 +85,7 @@ class Controller_Plugin extends Controller_Authorized {
 
         // получаем массив локализации плагина
         $plugin_lang_array = Instance_L10n::get()->getConstantsArray('plugin/'.self::$_name);
-        $this->template->plugin_array = $plugin_lang_array;
+        View::set_global('plugin_array', $plugin_lang_array);
     }
 
 
