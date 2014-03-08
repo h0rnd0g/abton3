@@ -19,6 +19,12 @@ class Instance_Plugins extends Instance {
             Kohana::$config->load('plugins.included');
     }
 
+    public function getPluginConfig($name)
+    {
+        return
+            Kohana::$config->load('plugin/'.$name);
+    }
+
     public function formPluginRoutes()
     {
         $plugins = $this->getPlugins();

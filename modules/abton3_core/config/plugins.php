@@ -2,7 +2,7 @@
 
 return array(
     'included' => array(
-//        'Navigation',
+        'Navigation',
 //        'Feedback',
         'Articles',
     ),

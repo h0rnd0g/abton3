@@ -162,7 +162,8 @@ class DB_Mapper_Auth extends DB_Mapper
                     'hash' => $user->getHash(),
                     'email' => $user->getEmail(),
                 )
-            );
+            )
+            ->where('id', '=', $user->getID());
 
         // получаем профиль пользователя и выполняем запрос на обновление записи профиля в таблице profiles
         $profile = $user->getProfile();
@@ -175,7 +176,8 @@ class DB_Mapper_Auth extends DB_Mapper
                     'occupation' => $profile->getOccupation(),
                     'about' => $profile->getAbout()
                 )
-            );
+            )
+            ->where('id', '=', $user->getID());
 
         try
         {
@@ -198,8 +200,7 @@ class DB_Mapper_Auth extends DB_Mapper
 
             DB::query(null, 'ROLLBACK')->execute();
 
-            return
-                $this->parseDatabaseException($e);
+            $this->parseDatabaseException($e);
         }
     }
 
@@ -266,12 +267,8 @@ class DB_Mapper_Auth extends DB_Mapper
              * Если ошибка, то откатываем транзакцию и парсим ошибку ее штатным методом маппера и возвращаем результат
              */
 
-            //throw new Exception($e->getMessage());
-
             DB::query(null, 'ROLLBACK')->execute();
 
-//            return
-//                $this->parseDatabaseException($e);
             $this->parseDatabaseException($e);
         }
     }

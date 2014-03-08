@@ -6,11 +6,27 @@
  */
 class Controller_Profile extends Controller_Authorized {
 
+    public function before()
+    {
+        parent::before();
+
+        // защита от CSRF-атак
+        $this->template->token = Instance_Security::get()->getCSRFToken();
+    }
+
     /*
      * Страница редактирования профиля пользователя
      */
     public function action_index()
     {
+        $test = Data_Test_Object::create();
+        $test->name = 'ololo';
+
+        $model = Data_Test_Model::create(Data_Test_Mapper_SQL::create());
+        //$model->add($test);
+
+//        throw new Exception(var_dump(isset($test->id)));
+
         $view = View::factory('profile/profile_index');
 
         // передаем языковые константы

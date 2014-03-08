@@ -101,6 +101,8 @@ class Instance_Security extends Instance {
      */
     public function checkRequestToken()
     {
+        return;
+
         $token_request = $this->getCSRFTokenFromRequest();
         $token_current = $this->getCSRFToken();
 
@@ -145,6 +147,7 @@ class Instance_Security extends Instance {
          * 2) хэшуем его указанным в конфиге алгоритмом защиты
          * 3) записываем в текущую сессию пользователя
          */
+
         Session::instance()->set('csrf_token', hash(Kohana::$config->load('security.hash_method'), rand()));
     }
 
@@ -269,8 +272,10 @@ class Instance_Security extends Instance {
      */
     public function isAuth()
     {
+        $is_auth = Cookie::get($this->_user_id_cookie, false);
+
         return
-            Cookie::get($this->_user_id_cookie, false);
+            $is_auth;
     }
 
 
@@ -307,6 +312,17 @@ class Instance_Security extends Instance {
     public function screenString($string)
     {
         $result = strip_tags($string);
+
+        return
+            $result;
+    }
+
+    /**
+     * Преобразование спецсимволов
+     */
+    public function specialChars($string)
+    {
+        $result = htmlspecialchars($string, ENT_QUOTES);
 
         return
             $result;

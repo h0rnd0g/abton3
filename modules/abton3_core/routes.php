@@ -36,6 +36,17 @@ define('A3_ROOT_URL', Instance_Routing::get()->getRootUrl());
                 'action'     => 'install',
             ));
 
+    /*
+     * роуты дополнительных плагинов
+     */
+
+        // elfinder file manager
+        Route::set('a3_extra_elfinder', A3_ROOT_URL.'/elfinder')
+            ->defaults(array(
+                'directory' => 'extra',
+                'controller' => 'elfinder'
+            ));
+
 // роут страницы авторизации (н-р, "/ua/admin/login", "/admin/login")
 Route::set('a3_core_loginscreen', '(<lng>/)'.A3_ROOT_URL.'/login')
     ->defaults(array(

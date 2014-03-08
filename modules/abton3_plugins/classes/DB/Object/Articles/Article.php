@@ -6,8 +6,11 @@
 class DB_Object_Articles_Article extends DB_Object
 {
 
+    protected $_active;
     protected $_title;
     protected $_preview;
+    protected $_preview_img;
+    protected $_pref;
     protected $_content;
     protected $_seo_keywords;
     protected $_seo_description;
@@ -17,6 +20,39 @@ class DB_Object_Articles_Article extends DB_Object
      * Get & Set
      */
 
+    public function getPreviewImg()
+    {
+        return
+            $this->_preview_img;
+    }
+
+    public function setPreviewImg($img)
+    {
+        $this->_preview_img = $img;
+    }
+
+    public function getPref()
+    {
+        return
+            $this->_pref;
+    }
+
+    public function setPref($pref)
+    {
+        $this->_pref = $pref;
+    }
+
+    public function getActive()
+    {
+        return
+            $this->_active;
+    }
+
+    public function setActive($active)
+    {
+        $this->_active = ($active) ? 1 : 0;
+    }
+
     public function getTitle()
     {
         return
@@ -25,7 +61,10 @@ class DB_Object_Articles_Article extends DB_Object
 
     public function setTitle($title)
     {
-        $this->_title = $title;
+        $screened = Instance_Security::get()->screenString($title);
+        $result = Instance_Security::get()->specialChars($screened);
+
+        $this->_title = $result;
     }
 
     public function getPreview()
@@ -36,7 +75,7 @@ class DB_Object_Articles_Article extends DB_Object
 
     public function setPreview($preview)
     {
-        $this->_preview = $preview;
+        $this->_preview = Instance_Security::get()->specialChars($preview);
     }
 
     public function getContent()
@@ -47,7 +86,7 @@ class DB_Object_Articles_Article extends DB_Object
 
     public function setContent($content)
     {
-        $this->_content = $content;
+        $this->_content = Instance_Security::get()->specialChars($content);
     }
 
     public function getSEOKeywords()
@@ -58,7 +97,10 @@ class DB_Object_Articles_Article extends DB_Object
 
     public function setSEOKeywords($keywords)
     {
-        $this->_seo_keywords = $keywords;
+        $screened = Instance_Security::get()->screenString($keywords);
+        $result = Instance_Security::get()->specialChars($screened);
+
+        $this->_seo_keywords = $result;
     }
 
     public function getSEODescription()
@@ -69,7 +111,10 @@ class DB_Object_Articles_Article extends DB_Object
 
     public function setSEODescription($description)
     {
-        $this->_seo_description = $description;
+        $screened = Instance_Security::get()->screenString($description);
+        $result = Instance_Security::get()->specialChars($screened);
+
+        $this->_seo_description = $result;
     }
 
     public function getAdded()
@@ -84,16 +129,16 @@ class DB_Object_Articles_Article extends DB_Object
     }
 
 
-
-
-
-    function __construct($id, $title, $preview, $content, $added, $seo_keywords = '', $seo_description = '')
+    function __construct($id, $active, $title, $preview, $content, $added, $pref, $preview_img, $seo_keywords = '', $seo_description = '')
     {
         // инциализация
+        $this->_active = $active;
         $this->_title = $title;
         $this->_preview = $preview;
         $this->_content = $content;
         $this->_added = $added;
+        $this->_preview_img = $preview_img;
+        $this->_pref = $pref;
         $this->_seo_keywords = $seo_keywords;
         $this->_seo_description = $seo_description;
 

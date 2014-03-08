@@ -6,9 +6,9 @@ return array(
 		'type' => 'MySQL',
 		'connection' => array(
 			'hostname' => 'localhost',
-			'database' => 'abton3',
-			'username' => 'root',
-			'password' => 'root',
+			'database' => 'invacare_site',
+			'username' => 'u_invacare',
+			'password' => 'i123456',
 			'persistent' => false,
 		),
 		'table_prefix' => '',

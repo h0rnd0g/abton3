@@ -402,8 +402,24 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN PLUGIN SCRIPTS -->
 <script>
-    // объявляем глобально путь к ajax роуту плагина
-    var ajax_url = '<?= $ajax_url ?>';
+    $.ajaxSetup({
+        data: {
+            token: '<?= $token ?>'
+        },
+        dataType: 'json'
+    });
+
+    <? if (isset($ajax_url)): ?>
+
+        // объявляем глобально путь к ajax роуту плагина
+        var ajax_url = '<?= $ajax_url ?>';
+
+    <? endif; ?>
+
+    // объявляем языковые константы для скриптов
+    <? foreach ($plugin_array as $key => $value): ?>
+        var <?= $key ?> = '<?= $value ?>';
+    <? endforeach; ?>
 </script>
 
 <? if (isset($js)): ?>

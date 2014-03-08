@@ -89,6 +89,9 @@ class Controller_Plugin extends Controller_Authorized {
         View::set_global('plugin_array', $plugin_lang_array);
 
         View::set_global('ajax_url', Instance_Routing::get()->makeUrl(self::$_name.'/ajax'));
+
+        // защита от CSRF-атак
+        $this->template->token = Instance_Security::get()->getCSRFToken();
     }
 
 
