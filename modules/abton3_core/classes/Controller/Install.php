@@ -161,11 +161,11 @@ class Controller_Install extends Controller_Base {
                 ->save();
 
             // создаем таблицы в БД (системные + подключенных модулей), предварительно удаляя (флаг true)
-            DB_Model_Auth::get()->createTables(true);
+            //DB_Model_Auth::get()->createTables(true);
 
             // создаем пользователя
-            $user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, $data['admin-login'], $data['admin-password'], $data['admin-email'], DB_Object::TIMESTAMP_NOW);
-            DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
+            //$user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, $data['admin-login'], $data['admin-password'], $data['admin-email'], DB_Object::TIMESTAMP_NOW);
+            //DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
 
             // если были ошибки, то возвращаем их
             if ($error_handler->haveErrors())
@@ -198,7 +198,7 @@ class Controller_Install extends Controller_Base {
          * Следовательно, нужно выполнить откат
          */
 
-        DB_Model_Auth::get()->dropTables();
+        //DB_Model_Auth::get()->dropTables();
     }
 
 }

@@ -14,29 +14,6 @@ class Controller_Login extends Controller_Depended {
      */
     public function action_index()
     {
-//        DB_Model_Auth::get()->dropTables();
-//        DB_Model_Auth::get()->createTables();
-
-//        $profile = new DB_Object_User_Profile('Serhiy', '1992-01-01', '717021', 'developer');
-//
-//
-//        $user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByID(1);
-//
-//        $user->setProfile($profile);
-//
-//        DB_Model_Auth::get()->getMapperInstance()->saveUserAuth($user);
-
-//        DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
-
-//
-//
-//
-//
-//
-//        DB_Model_Auth::get()->getMapperInstance()->saveUserAuth($user);
-//
-//        throw new Exception(var_dump($user));
-
         // удаляем cookie про авторизацию
         Instance_Security::get()->logout();
 
