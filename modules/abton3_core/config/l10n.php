@@ -4,6 +4,8 @@ return array(
 	'default_language' => 'ua',
 	'available_languages' => array(
 		'ua',
+		'ru',
+		'en',
 	),
 	'existing_languages' => array(
 		'ua' => 'українська',

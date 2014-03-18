@@ -3,15 +3,29 @@
 /**
  * Class Data_Mapper
  */
-abstract class Data_Mapper {
+abstract class Data_Mapper extends Data_Base {
 
-    public static function create()
+    protected $tables = array();
+
+    public function install()
     {
-        return (new static());
+        return
+            $this;
+    }
+    public function uninstall()
+    {
+        return
+            $this;
     }
 
-    protected function __construct()
+    public function __construct()
     {
+        $prefix = Kohana::$config->load('database.cms_table_prefix');
+
+        foreach ($this->tables as &$table)
+        {
+            $table = $prefix.$table;
+        }
     }
 
 }

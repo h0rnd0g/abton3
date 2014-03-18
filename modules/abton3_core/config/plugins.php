@@ -2,8 +2,6 @@
 
 return array(
     'included' => array(
-        'Navigation',
-//        'Feedback',
-        'Articles',
+        'Dummy',
     ),
 );

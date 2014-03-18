@@ -140,9 +140,9 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!--                </li>-->
 <!--            </ul>-->
 <!--        </li>-->
-        <li class="external">
-            <a href="inbox.html"><?= $template_array['user_messages_goto'] ?> <i class="m-icon-swapright"></i></a>
-        </li>
+<!--        <li class="external">-->
+<!--            <a href="inbox.html">--><?//= $template_array['user_messages_goto'] ?><!-- <i class="m-icon-swapright"></i></a>-->
+<!--        </li>-->
     </ul>
 </li>
 <!-- END INBOX DROPDOWN -->
@@ -150,13 +150,13 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <li class="dropdown user">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
         <img alt="" src="/assets/img/no-avatar-min.png"/>
-        <span class="username"><?= $user->getRepresentativeName() ?></span>
+        <span class="username"><?= $user->representative ?></span>
         <i class="icon-angle-down"></i>
     </a>
     <ul class="dropdown-menu">
         <li><a href="<?= Instance_Routing::get()->route('core_profile_edit') ?>"><i class="icon-user"></i> <?= $template_array['user_menu_profile'] ?></a>
         </li>
-        <li><a href="inbox.html"><i class="icon-envelope"></i> <?= $template_array['user_menu_messages'] ?> <span class="badge badge-default">0</span></a>
+        <!--<li><a href="inbox.html"><i class="icon-envelope"></i> <?= $template_array['user_menu_messages'] ?> <span class="badge badge-default">0</span></a>-->
         </li>
         <li class="divider"></li>
         <li><a href="javascript:;" id="trigger_fullscreen"><i class="icon-move"></i> <?= $template_array['user_menu_fullscreen'] ?></a>

@@ -19,14 +19,6 @@ class Controller_Profile extends Controller_Authorized {
      */
     public function action_index()
     {
-        $test = Data_Test_Object::create();
-        $test->name = 'ololo';
-
-        $model = Data_Test_Model::create(Data_Test_Mapper_SQL::create());
-        //$model->add($test);
-
-//        throw new Exception(var_dump(isset($test->id)));
-
         $view = View::factory('profile/profile_index');
 
         // передаем языковые константы
@@ -35,7 +27,7 @@ class Controller_Profile extends Controller_Authorized {
         $this->template->plugin_array = $l10n_array;
         $view->l10n_array = $l10n_array;
 
-        // получаем вид и передаем туда необходимые значения
+        // получаем вид шаблона и передаем туда необходимые значения
         $this->template->content = $view;
     }
 

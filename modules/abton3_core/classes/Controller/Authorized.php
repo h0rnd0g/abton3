@@ -37,7 +37,8 @@ class Controller_Authorized extends Controller_Depended {
          */
 
         // читаем из базы пользователя и сохраняем в поле контроллера
-        $this->_user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByID($user_id);
+        $core_model = Data_Factory::model('core');
+        $this->_user = $core_model->getUserByID($user_id);
         View::set_global('user', $this->_user); // делаем глобальным для всех видов и шаблонов
 
         /*

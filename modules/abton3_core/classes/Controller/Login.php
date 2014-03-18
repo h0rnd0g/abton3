@@ -14,6 +14,9 @@ class Controller_Login extends Controller_Depended {
      */
     public function action_index()
     {
+        //$model = Data_Factory::model('core');
+        //$model->getMapper()->uninstall()->install();
+
         // удаляем cookie про авторизацию
         Instance_Security::get()->logout();
 
@@ -31,13 +34,14 @@ class Controller_Login extends Controller_Depended {
             $remember = isset($post['remember']);
 
             // получаем пользователя с указанным логином
-            $user = DB_Model_Auth::get()->getMapperInstance()->getUserAuthByLogin($login);
+            $core_model = Data_Factory::model('core');
+            $user = $core_model->getUserByLogin($login);
 
             // проверка: найден ли пользователь (идентификация)
             if ($user)
             {
                 // сверяем введенный пароль и хэш найденного пользователя
-                if (Instance_Security::get()->comparePassword($password, $user->getHash()))
+                if (Instance_Security::get()->comparePassword($password, $user->hash))
                 {
                     // аутентификация успешна!
                     Instance_Security::get()->authUser($user, $remember);

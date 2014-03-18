@@ -7,25 +7,30 @@ abstract class Data_Object {
 
     protected $fields = array();
 
-    final function __get($property)
+    function __get($property)
     {
         if (array_key_exists($property, $this->fields))
         {
             $method = "get{$property}";
 
             if (method_exists($this, $method))
-                return $this->$method($this->fields[$property]);
+                return
+                    $this->$method($this->fields[$property]);
             else
-                return $this->fields[$property];
+                return
+                    $this->fields[strtolower($property)];
         }
     }
 
-    final function __set($property, $value)
+    function __set($property, $value)
     {
         $method = "set{$property}";
 
         if (method_exists($this, $method))
-            return $this->$method($value);
+            return
+                $this->$method($value);
+        else
+            $this->fields[strtolower($property)] = $value;
     }
 
     final function __isset($property)
@@ -42,35 +47,39 @@ abstract class Data_Object {
     {
         $fields = array();
         foreach ($this->fields as $key => $value)
-            if ($value !== null)
+            if (($value !== null) and (!is_object($value)))
                 $fields[$key] = $this->$key;
 
-        return $fields;
+        return
+            $fields;
     }
 
     final public function formRawKeys()
     {
         $keys = array();
         foreach ($this->fields as $key => $value)
-            if ($value !== null)
+            if (($value !== null) and (!is_object($value)))
                 $keys[] = $key;
 
-        return $keys;
+        return
+            $keys;
     }
 
     final public function formRawValues()
     {
         $values = array();
         foreach ($this->fields as $key => $value)
-            if ($value !== null)
+            if (($value !== null) and (!is_object($value)))
                 $values[] = $this->$key;
 
-        return $values;
+        return
+            $values;
     }
 
     public static function create(array $values = array())
     {
-        return (new static($values));
+        return
+            (new static($values));
     }
 
     protected function __construct(array $values = array())

@@ -160,12 +160,19 @@ class Controller_Install extends Controller_Base {
             $security_config
                 ->save();
 
-            // создаем таблицы в БД (системные + подключенных модулей), предварительно удаляя (флаг true)
-            //DB_Model_Auth::get()->createTables(true);
+            // инсталируем систему, создавая необходимые структуры БД (системные + подключенных модулей), предварительно удаляя уже существующие
+            $core_model = Data_Factory::model('core');
+            $core_model
+                ->uninstall()
+                ->install();
 
             // создаем пользователя
-            //$user = new DB_Object_User_Auth(DB_Object::PK_AUTO_INCREMENT, $data['admin-login'], $data['admin-password'], $data['admin-email'], DB_Object::TIMESTAMP_NOW);
-            //DB_Model_Auth::get()->getMapperInstance()->addUserAuth($user);
+            $user = Data_Core_Object_User::create();
+            $user->login = $data['admin-login'];
+            $user->password = $data['admin-password'];
+            $user->email = $data['admin-email'];
+
+            $core_model->addUser($user);
 
             // если были ошибки, то возвращаем их
             if ($error_handler->haveErrors())
