@@ -6,10 +6,10 @@ return
     array
     (
         'ua' => array(
-            'title' => 'Локализация',
+            'title' => 'Локалізація сайту',
 
-            'index' => 'Dummy plugin',
-            'show' => 'show something',
-            'care' => 'here is care',
+            'cat' => 'Локалізація',
+            'locales' => 'Мови сайту',
+            'vars' => 'Статичне наповнення',
         ),
     );

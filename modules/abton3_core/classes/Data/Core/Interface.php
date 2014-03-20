@@ -8,5 +8,6 @@ interface Data_Core_Interface {
     public function addUser(Data_Core_Object_User $user);
     public function getUserByLogin($login);
     public function getUserByID($id);
+    public function getProfileByID($id);
 
 }

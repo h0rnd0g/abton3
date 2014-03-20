@@ -13,26 +13,23 @@
                         <div class="col-md-3">
                             <ul class="list-unstyled profile-nav">
                                 <li>
-                                    <img src="/assets/img/no-avatar.png" class="img-responsive" alt="">
+                                    <img src="<?= (isset($user->profile->avatar)) ? $user->profile->avatar : '/assets/img/no-avatar.png' ?>" class="img-responsive" alt="">
                                 </li>
                             </ul>
                         </div>
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-8 profile-info">
-                                    <h1><?= $user->getRepresentativeName() ?></h1>
-                                    <? if ($user->getProfile()->getOccupation() != ''): ?>
-                                        <p><?= $user->getProfile()->getAbout() ?></p>
+                                    <h1><?= $user->representative ?></h1>
+                                    <? if (isset($user->description)): ?>
+                                        <p><?= $user->description ?></p>
                                     <? endif; ?>
                                     <ul class="list-inline">
-                                        <? if ($user->getProfile()->getBirthdate() != '0000-00-00'): ?>
-                                            <li><i class="icon-calendar"></i> <?= $user->getProfile()->getBirthdate() ?></li>
+                                        <? if (isset($user->phone)): ?>
+                                            <li><i class="icon-phone"></i> <?= $user->phone ?></li>
                                         <? endif; ?>
-                                        <? if ($user->getProfile()->getPhone() != ''): ?>
-                                            <li><i class="icon-phone"></i> <?= $user->getProfile()->getPhone() ?></li>
-                                        <? endif; ?>
-                                        <? if ($user->getProfile()->getOccupation() != ''): ?>
-                                            <li><i class="icon-star"></i> <?= $user->getProfile()->getOccupation() ?></li>
+                                        <? if (isset($user->occupation)): ?>
+                                            <li><i class="icon-star"></i> <?= $user->occupation ?></li>
                                         <? endif; ?>
                                     </ul>
                                 </div>

@@ -23,6 +23,12 @@ class Data_Core_Model extends Data_Model implements Data_Core_Interface {
             $this->mapper->getUserByID($id);
     }
 
+    public function getProfileByID($id)
+    {
+        return
+            $this->mapper->getProfileByID($id);
+    }
+
     public function __construct(Data_Core_Mapper $mapper)
     {
         parent::__construct($mapper);

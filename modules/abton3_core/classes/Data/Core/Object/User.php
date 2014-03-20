@@ -5,24 +5,7 @@
  */
 class Data_Core_Object_User extends Data_Object {
 
-    function __set($property, $value)
-    {
-        if (strtolower($property) == 'password')
-            $this->setPassword($value);
-        else
-            return
-                parent::__set($property, $value);
-    }
-
-    function __get($property)
-    {
-        if (strtolower($property) == 'representative')
-            return
-                $this->getRepresentativeName();
-        else
-            return
-                parent::__get($property);
-    }
+    protected $_profile = null;
 
     protected function initFields()
     {
@@ -32,7 +15,38 @@ class Data_Core_Object_User extends Data_Object {
         $this->fields['hash'] = null;
         $this->fields['email'] = null;
         $this->fields['right_group'] = null;
-        $this->fields['profile'] = null;
+    }
+
+    protected function getRepresentative()
+    {
+        if (isset($this->profile))
+            if (isset($this->profile->name))
+                return
+                    $this->profile->name;
+
+        return
+            $this->login;
+    }
+
+    protected function getProfile()
+    {
+        // реализация lazyload
+        if (($this->_profile === null) and ($this->id !== null))
+        {
+            $core_model = Data_Factory::model('core');
+            $this->_profile = $core_model->getProfileByID($this->id);
+
+            return
+                $this->_profile;
+        }
+
+        return
+            $this->_profile;
+    }
+
+    protected function setProfile(Data_Core_Object_Profile $profile)
+    {
+        $this->lprofile = $profile;
     }
 
     protected function setPassword($password)
@@ -40,7 +54,7 @@ class Data_Core_Object_User extends Data_Object {
         $this->hash = Instance_Security::get()->hash($password);
     }
 
-    public function setLogin($login)
+    protected function setLogin($login)
     {
         $login = strtolower($login); // логин всегда в нижнем регистре
 
@@ -63,7 +77,7 @@ class Data_Core_Object_User extends Data_Object {
             throw new Validation_Exception($input);
     }
 
-    public function setEmail($email)
+    protected function setEmail($email)
     {
         // конструктор валидатора и его правил
         $input = new Validation(array('email' => $email));
@@ -76,17 +90,6 @@ class Data_Core_Object_User extends Data_Object {
             $this->fields['email'] = $email;
         else
             throw new Validation_Exception($input);
-    }
-
-    public function getRepresentativeName()
-    {
-        if (isset($this->profile))
-            if (isset($this->profile->name))
-                return
-                    $this->profile->name;
-
-        return
-            $this->login;
     }
 
 }

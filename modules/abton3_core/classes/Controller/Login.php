@@ -14,7 +14,7 @@ class Controller_Login extends Controller_Depended {
      */
     public function action_index()
     {
-        //$model = Data_Factory::model('core');
+        $model = Data_Factory::model('core');
         //$model->getMapper()->uninstall()->install();
 
         // удаляем cookie про авторизацию

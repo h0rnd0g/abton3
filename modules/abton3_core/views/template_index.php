@@ -45,6 +45,7 @@ Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-templa
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
 <body class="page-header-fixed">
+<?php //echo View::factory('profiler/stats') ?>
 <!-- BEGIN HEADER -->
 <div class="header navbar navbar-inverse navbar-fixed-top">
 <!-- BEGIN TOP NAVIGATION BAR -->

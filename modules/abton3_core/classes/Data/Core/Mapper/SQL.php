@@ -38,8 +38,8 @@ class Data_Core_Mapper_SQL extends Data_Core_Mapper {
               CONSTRAINT `fk_{$this->tables['users']}_core_right_groups1`
                 FOREIGN KEY (`core_right_groups_id`)
                 REFERENCES `{$this->tables['right_groups']}` (`id`)
-                ON DELETE NO ACTION
-                ON UPDATE NO ACTION)
+                ON DELETE SET NULL
+                ON UPDATE RESTRICT)
               ENGINE = InnoDB;"
         );
 
@@ -50,13 +50,15 @@ class Data_Core_Mapper_SQL extends Data_Core_Mapper {
               `occupation` VARCHAR(100) NULL,
               `description` VARCHAR(1000) NULL,
               `phone` CHAR(13) NULL,
+              `birthdate` DATE NULL,
+              `avatar` VARCHAR(255) NULL,
               PRIMARY KEY (`core_users_id`),
               INDEX `fk_{$this->tables['profiles']}_core_users_idx` (`core_users_id` ASC),
               CONSTRAINT `fk_{$this->tables['profiles']}_core_users`
                 FOREIGN KEY (`core_users_id`)
                 REFERENCES `{$this->tables['users']}` (`id`)
-                ON DELETE NO ACTION
-                ON UPDATE NO ACTION)
+                ON DELETE CASCADE
+                ON UPDATE RESTRICT)
               ENGINE = InnoDB;"
         );
 
@@ -73,14 +75,14 @@ class Data_Core_Mapper_SQL extends Data_Core_Mapper {
               CONSTRAINT `fk_{$this->tables['temp_links']}_core_users1`
                 FOREIGN KEY (`core_users_id`)
                 REFERENCES `{$this->tables['users']}` (`id`)
-                ON DELETE NO ACTION
-                ON UPDATE NO ACTION)
+                ON DELETE CASCADE
+                ON UPDATE RESTRICT)
               ENGINE = InnoDB;"
         );
 
         $query_create_core_right_group_attributes = DB::query(0,
             "CREATE TABLE IF NOT EXISTS `{$this->tables['right_group_attributes']}` (
-                `id` INT UNSIGNED NOT NULL,
+                `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
                 `key` VARCHAR(100) NULL,
                 `core_right_groups_id` INT UNSIGNED NOT NULL,
                 PRIMARY KEY (`id`),
@@ -88,8 +90,8 @@ class Data_Core_Mapper_SQL extends Data_Core_Mapper {
                 CONSTRAINT `fk_{$this->tables['right_group_attributes']}_core_right_groups1`
                   FOREIGN KEY (`core_right_groups_id`)
                   REFERENCES `{$this->tables['right_groups']}` (`id`)
-                  ON DELETE NO ACTION
-                  ON UPDATE NO ACTION)
+                  ON DELETE CASCADE
+                  ON UPDATE RESTRICT)
                 ENGINE = InnoDB;"
         );
 
@@ -151,6 +153,9 @@ class Data_Core_Mapper_SQL extends Data_Core_Mapper {
         $query_drop_core_right_group_attributes = DB::query(0,
             "DROP TABLE IF EXISTS `{$this->tables['right_group_attributes']}`"
         );
+
+        $query_drop_trigger_core_rights = DB::query(0,
+            "DROP TABLE IF EXISTS `core_right_groups_BDEL`");
 
         try
         {
@@ -243,12 +248,33 @@ class Data_Core_Mapper_SQL extends Data_Core_Mapper {
 
         if (!count($user_raw))
             return
-                false;
+                null;
 
         $user = Data_Core_Object_User::create($user_raw[0]);
 
         return
             $user;
+    }
+
+    public function getProfileByID($id)
+    {
+        $query_select_profile = DB::select()
+            ->from($this->tables['profiles'])
+            ->where('core_users_id', '=', $id)
+            ->limit(1);
+
+        $profile_raw = $query_select_profile
+            ->execute()
+            ->as_array();
+
+        if (!count($profile_raw))
+            return
+                null;
+
+        $profile = Data_Core_Object_Profile::create($profile_raw[0]);
+
+        return
+            $profile;
     }
 
 }

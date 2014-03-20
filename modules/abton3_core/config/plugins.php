@@ -2,6 +2,6 @@
 
 return array(
     'included' => array(
-        'Dummy',
+        'Locale'
     ),
 );

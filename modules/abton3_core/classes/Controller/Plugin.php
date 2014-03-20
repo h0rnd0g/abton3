@@ -77,6 +77,7 @@ class Controller_Plugin extends Controller_Authorized {
 
         // получаем и передаем информацию о стилях и скриптах
         $this->script('/assets/scripts/abton/plugins/'.self::$_name.'.js'); // подключаем скрипт плагина
+        $this->script('/assets/scripts/abton/plugins/'.self::$_name.'/'.$this->request->action().'.js'); // подключаем скрипт текущей страницы плагина
         $this->formJsAndCSS();
         $this->template->css = $this->_includes['css'];
         $this->template->js = $this->_includes['js'];
