@@ -129,12 +129,6 @@ class Controller_Install extends Controller_Base {
                 ->set('root_url_part', $data['misc-prefix'])
                 ->save();
 
-//            Kohana::$config
-//                ->load('l10n')
-//                ->set('default_language', $data['123'])
-//                ->set('available_languages', $data['123'])
-//                ->save();
-
             $hash_data = explode(',', $data['security-hash-func']); // разбиваем переданную строку на два значения
             $hash_func_name = $hash_data[0]; // 1) название алгоритма хэширования
             $hash_length = $hash_data[1];    // 2) длина хэша указанного алгоритма
@@ -173,6 +167,19 @@ class Controller_Install extends Controller_Base {
             $user->email = $data['admin-email'];
 
             $core_model->addUser($user);
+
+            // здесь устанавливаем включенные плагины ---
+            $plugins = Kohana::$config->load('plugins.included');
+
+            foreach ($plugins as $plugin)
+            {
+                $model_name = 'Model_Plugin_'.$plugin;
+
+                if (class_exists($model_name) and method_exists($model_name, 'install'))
+                    $model_name::install();
+            }
+            // --- конец установки плагинов
+
 
             // если были ошибки, то возвращаем их
             if ($error_handler->haveErrors())
